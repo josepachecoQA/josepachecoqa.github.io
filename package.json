@@ -1,0 +1,24 @@
+{
+  "name": "jose-pacheco-qa-engineer",
+  "version": "1.0.0",
+  "description": "Landing page profissional de QA Engineer Pleno - Qualidade orientada ao negócio",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "build": "echo 'Build completo. Pronto para publicação.'",
+    "deploy": "echo 'Use GitHub Pages, Vercel ou Netlify para deploy'"
+  },
+  "keywords": [
+    "qa",
+    "quality-assurance",
+    "testing",
+    "portfólio",
+    "landing-page"
+  ],
+  "author": "José Pacheco",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seu-usuario/pagina-profissional"
+  }
+}
