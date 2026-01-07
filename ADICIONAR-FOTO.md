@@ -22,7 +22,7 @@ Você precisa de uma foto:
 
 ### 2. Coloque a foto na pasta correta
 
-1. Vá para: `c:\Users\José Pacheco\Documents\pagina_profissional\assets\images\`
+1. Vá para: `c:\Users\Seu_user\Documents\pagina_profissional\assets\images\`
 2. Coloque sua foto com o nome: `profile.jpg`
 
 **Ou**, se quiser usar outro nome:
