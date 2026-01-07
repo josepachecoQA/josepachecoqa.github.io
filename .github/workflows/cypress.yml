@@ -18,10 +18,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          # Prefer clean install when lockfile exists, otherwise fall back to npm install
+          npm ci || npm install
 
       - name: Install Cypress
         run: npx cypress install
