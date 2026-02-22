@@ -155,7 +155,7 @@ Troque as fontes no `<head>` do HTML e ajuste as variaveis em `styles.css`.
 
 ## 📊 Dashboard de Qualidade
 
-Os dados sao carregados de `metrics/quality-metrics.json`. O dashboard so exibe o que estiver neste arquivo.
+Os dados sao carregados do branch `metrics-data` (arquivo `metrics/quality-metrics.json`). Assim o CI atualiza as metricas sem alterar o `main`.
 
 Campos usados na analise:
 - `totals.executedTests`, `totals.failedTests`, `totals.durationSeconds`

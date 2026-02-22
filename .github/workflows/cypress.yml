@@ -110,15 +110,17 @@ jobs:
         if: steps.cypress.outcome == 'failure'
         run: exit 1
 
-      - name: Commit metrics update
+      - name: Commit metrics update (metrics-data)
         if: always() && github.event_name == 'push' && github.actor != 'github-actions[bot]'
         run: |
           if git status --porcelain | grep "metrics/quality-metrics.json"; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
+            git fetch origin metrics-data || true
+            git checkout -B metrics-data
             git add metrics/quality-metrics.json
-            git commit -m "chore: update quality metrics [skip ci]"
-            git push
+            git commit -m "chore: atualizar metricas [skip ci]"
+            git push origin metrics-data
           else
             echo "No metrics changes"
           fi

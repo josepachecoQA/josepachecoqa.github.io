@@ -505,11 +505,20 @@ function getMetricsRequests() {
 
     if (requests.length) return requests;
 
+    const defaultUrl = getDefaultMetricsUrl();
     return [{
-        id: 'local',
-        url: 'metrics/quality-metrics.json',
-        sourceLabel: 'Repositório local'
+        id: 'default',
+        url: defaultUrl,
+        sourceLabel: defaultUrl.includes('raw.githubusercontent.com') ? 'metrics-data' : 'Repositório local'
     }];
+}
+
+function getDefaultMetricsUrl() {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') {
+        return 'metrics/quality-metrics.json';
+    }
+    return 'https://raw.githubusercontent.com/josepachecoQA/josepachecoqa.github.io/metrics-data/metrics/quality-metrics.json';
 }
 
 function parseRepoSpec(repoSpec, params) {
