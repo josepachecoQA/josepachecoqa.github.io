@@ -58,6 +58,15 @@ jobs:
         continue-on-error: true
         run: npx cypress run --headless --reporter json --quiet > reports/cypress-results.json
 
+      - name: Show Cypress report on failure
+        if: steps.cypress.outcome == 'failure'
+        run: |
+          if [ -f reports/cypress-results.json ]; then
+            node -e "const fs=require('fs');const p='reports/cypress-results.json';const raw=fs.readFileSync(p,'utf8');const data=JSON.parse(raw);const stats=data.stats||{};const failures=data.failures||[];console.log('Cypress stats:', stats);if(failures.length){console.log('Failures:');failures.slice(0,5).forEach((f,i)=>{console.log(`#${i+1} ${f.fullTitle}`);console.log(f.err && f.err.message ? f.err.message : 'No error message');});} else {console.log('No failures array found.');}"
+          else
+            echo "No cypress-results.json found"
+          fi
+
       - name: Generate coverage summary
         if: always()
         continue-on-error: true
@@ -83,6 +92,13 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+
+      - name: Upload Cypress report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-report
+          path: reports/cypress-results.json
 
       - name: Generate test report
         if: always()
