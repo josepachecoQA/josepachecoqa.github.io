@@ -1,7 +1,7 @@
 {
   "source": {
     "label": "GitHub Actions",
-    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions/runs/22285904434"
+    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions/runs/22286144800"
   },
   "targets": {
     "failureRateMax": 1,
@@ -11,13 +11,13 @@
     "coverageMin": 80,
     "coverageWarn": 75
   },
-  "lastUpdated": "2026-02-22T21:40:55.052Z",
+  "lastUpdated": "2026-02-22T21:55:42.227Z",
   "totals": {
     "executedTests": 30,
     "failedTests": 0,
     "durationSeconds": 7,
     "flakinessPercent": 0,
-    "coveragePercent": 80.74,
+    "coveragePercent": 80.73,
     "bugsPrevented": 5
   },
   "history": [
@@ -83,7 +83,7 @@
       "failedTests": 0,
       "durationSeconds": 7,
       "flakinessPercent": 0,
-      "coveragePercent": 80.74
+      "coveragePercent": 80.73
     }
   ]
 }
