@@ -276,22 +276,29 @@ async function loadQualityMetrics() {
     try {
         statusEl.textContent = 'Carregando dados...';
 
-        const metricsRequest = getMetricsRequest();
-        const response = await fetch(metricsRequest.url, { cache: 'no-store' });
-        if (!response.ok) {
+        const requests = getMetricsRequests();
+        const results = await Promise.all(requests.map(request => fetchMetrics(request)));
+        const successes = results.filter(result => result.data);
+
+        if (successes.length === 0) {
             throw new Error('Falha ao carregar metricas');
         }
 
-        const data = await response.json();
+        const aggregated = aggregateMetrics(successes);
+        renderQualityDashboard(aggregated.data, { isMulti: aggregated.isMulti });
+        renderProjectList(aggregated.projects);
 
-        renderQualityDashboard(data);
-
-        const updated = data.lastUpdated ? formatDateTime(data.lastUpdated) : 'Nao informado';
+        const updated = aggregated.updatedAt ? formatDateTime(aggregated.updatedAt) : 'Nao informado';
         updatedEl.textContent = updated;
-        const sourceLabel = data.source?.label || metricsRequest.sourceLabel || 'Fonte do CI';
-        const sourceUrl = data.source?.url || metricsRequest.sourceUrl || metricsRequest.url || '#';
-        sourceEl.href = sourceUrl;
-        sourceEl.textContent = sourceLabel;
+
+        if (aggregated.isMulti) {
+            sourceEl.href = '#';
+            sourceEl.textContent = 'Multiplas fontes';
+        } else {
+            const project = aggregated.projects[0];
+            sourceEl.href = project.sourceUrl || project.request.url || '#';
+            sourceEl.textContent = project.sourceLabel || 'Fonte do CI';
+        }
         statusEl.textContent = 'Dados atualizados';
     } catch (error) {
         console.warn('Erro ao carregar metricas:', error);
@@ -300,7 +307,8 @@ async function loadQualityMetrics() {
     }
 }
 
-function renderQualityDashboard(data) {
+function renderQualityDashboard(data, options) {
+    const isMulti = Boolean(options && options.isMulti);
     const history = Array.isArray(data.history) ? data.history : [];
     const totals = data.totals || {};
     const latest = history[history.length - 1] || {};
@@ -335,8 +343,8 @@ function renderQualityDashboard(data) {
     setBar('barDuration', normalizeDuration(durationSeconds, history), 'barDurationValue', formatDuration(durationSeconds));
 
     updateQualityStatus(failureRate, flakiness, coverage, executed, targets);
-    updateSummary(failureRate, flakiness, coverage, executed, bugs, targets);
-    updateTargetsText(targets);
+    updateSummary(failureRate, flakiness, coverage, executed, bugs, targets, isMulti);
+    updateTargetsText(targets, isMulti);
     drawTrendChart(history);
 }
 
@@ -381,29 +389,28 @@ function updateQualityStatus(failureRate, flakiness, coverage, executed, targets
     const status = document.getElementById('qualityStatus');
     if (!status) return;
 
+    const result = buildQualityStatus(failureRate, flakiness, coverage, executed, targets);
+    status.textContent = result.label;
+    status.className = `status-pill ${result.className}`;
+}
+
+function buildQualityStatus(failureRate, flakiness, coverage, executed, targets) {
     if (executed === 0) {
-        status.textContent = 'Sem dados';
-        status.className = 'status-pill is-neutral';
-        return;
+        return { label: 'Sem dados', className: 'is-neutral' };
     }
 
     if (failureRate <= targets.failureRateMax && flakiness <= targets.flakinessMax && coverage >= targets.coverageMin) {
-        status.textContent = 'Estavel';
-        status.className = 'status-pill is-good';
-        return;
+        return { label: 'Estavel', className: 'is-good' };
     }
 
     if (failureRate <= targets.failureRateWarn && flakiness <= targets.flakinessWarn && coverage >= targets.coverageWarn) {
-        status.textContent = 'Atenção';
-        status.className = 'status-pill is-warning';
-        return;
+        return { label: 'Atencao', className: 'is-warning' };
     }
 
-    status.textContent = 'Risco alto';
-    status.className = 'status-pill is-danger';
+    return { label: 'Risco alto', className: 'is-danger' };
 }
 
-function updateSummary(failureRate, flakiness, coverage, executed, bugs, targets) {
+function updateSummary(failureRate, flakiness, coverage, executed, bugs, targets, isMulti) {
     const summary = document.getElementById('qualitySummary');
     if (!summary) return;
 
@@ -417,15 +424,21 @@ function updateSummary(failureRate, flakiness, coverage, executed, bugs, targets
         `flakiness em ${flakiness.toFixed(1)}%`,
         `cobertura de cenarios em ${coverage.toFixed(0)}%`,
         `bugs evitados registrados: ${bugs}`,
-        `metas: falhas <= ${targets.failureRateMax.toFixed(1)}%, flakiness <= ${targets.flakinessMax.toFixed(1)}%, cobertura >= ${targets.coverageMin.toFixed(0)}%`
+        isMulti
+            ? 'metas por projeto (consulte a lista abaixo)'
+            : `metas: falhas <= ${targets.failureRateMax.toFixed(1)}%, flakiness <= ${targets.flakinessMax.toFixed(1)}%, cobertura >= ${targets.coverageMin.toFixed(0)}%`
     ];
 
     summary.textContent = parts.join('. ') + '.';
 }
 
-function updateTargetsText(targets) {
+function updateTargetsText(targets, isMulti) {
     const targetsEl = document.getElementById('metricsTargets');
     if (!targetsEl) return;
+    if (isMulti) {
+        targetsEl.textContent = 'Metas por projeto (status agregado usa valores padrao).';
+        return;
+    }
     targetsEl.textContent = `Metas: falhas <= ${targets.failureRateMax.toFixed(1)}%, flakiness <= ${targets.flakinessMax.toFixed(1)}%, cobertura >= ${targets.coverageMin.toFixed(0)}%`;
 }
 
@@ -456,33 +469,287 @@ function toNumber(value, fallback) {
     return Number.isFinite(parsed) ? parsed : fallback;
 }
 
-function getMetricsRequest() {
+function getMetricsRequests() {
     const params = new URLSearchParams(window.location.search);
-    const metricsUrl = params.get('metricsUrl') || params.get('metrics') || params.get('artifactUrl');
-    if (metricsUrl) {
-        return {
-            url: metricsUrl,
+    const urlParams = [
+        ...params.getAll('metricsUrl'),
+        ...params.getAll('metrics'),
+        ...params.getAll('artifactUrl')
+    ].filter(Boolean);
+
+    const repoParams = params.getAll('repo').filter(Boolean);
+
+    const requests = [];
+
+    urlParams.forEach((url, index) => {
+        requests.push({
+            id: `url-${index}`,
+            url,
             sourceLabel: 'Fonte externa',
-            sourceUrl: metricsUrl
+            sourceUrl: url
+        });
+    });
+
+    repoParams.forEach((repoSpec, index) => {
+        const parsed = parseRepoSpec(repoSpec, params);
+        const rawUrl = `https://raw.githubusercontent.com/${parsed.repo}/${parsed.branch}/${parsed.path}`;
+        const repoUrl = `https://github.com/${parsed.repo}/tree/${parsed.branch}/${parsed.path}`;
+        requests.push({
+            id: `repo-${index}`,
+            url: rawUrl,
+            sourceLabel: `${parsed.repo}@${parsed.branch}`,
+            sourceUrl: repoUrl,
+            repo: parsed.repo
+        });
+    });
+
+    if (requests.length) return requests;
+
+    return [{
+        id: 'local',
+        url: 'metrics/quality-metrics.json',
+        sourceLabel: 'Repositorio local'
+    }];
+}
+
+function parseRepoSpec(repoSpec, params) {
+    const defaults = {
+        branch: params.get('branch') || 'main',
+        path: params.get('path') || 'metrics/quality-metrics.json'
+    };
+
+    let repo = repoSpec;
+    let branch = defaults.branch;
+    let path = defaults.path;
+
+    if (repoSpec.includes('@')) {
+        const parts = repoSpec.split('@');
+        repo = parts[0];
+        if (parts[1]) {
+            if (parts[1].includes(':')) {
+                const [branchPart, pathPart] = parts[1].split(':');
+                branch = branchPart || branch;
+                path = pathPart || path;
+            } else {
+                branch = parts[1];
+            }
+        }
+    } else if (repoSpec.includes(':')) {
+        const parts = repoSpec.split(':');
+        repo = parts[0];
+        path = parts[1] || path;
+    }
+
+    return { repo, branch, path };
+}
+
+async function fetchMetrics(request) {
+    try {
+        const response = await fetch(request.url, { cache: 'no-store' });
+        if (!response.ok) {
+            throw new Error(`Falha ao carregar ${request.url}`);
+        }
+        const data = await response.json();
+        return { request, data };
+    } catch (error) {
+        console.warn('Erro ao carregar metricas:', request.url, error);
+        return { request, error };
+    }
+}
+
+function aggregateMetrics(items) {
+    const projects = items.map(item => buildProjectSummary(item));
+    const isMulti = projects.length > 1;
+
+    if (!isMulti) {
+        return {
+            isMulti: false,
+            data: items[0].data,
+            updatedAt: items[0].data.lastUpdated,
+            projects
         };
     }
 
-    const repo = params.get('repo');
-    if (repo) {
-        const branch = params.get('branch') || 'main';
-        const path = params.get('path') || 'metrics/quality-metrics.json';
-        const rawUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${path}`;
-        const repoUrl = `https://github.com/${repo}/tree/${branch}/${path}`;
-        return {
-            url: rawUrl,
-            sourceLabel: `${repo}@${branch}`,
-            sourceUrl: repoUrl
-        };
-    }
+    const aggregateTotals = buildAggregatedTotals(items);
+    const aggregateHistory = buildAggregatedHistory(items);
+    const latestUpdated = projects.reduce((latest, project) => {
+        if (!project.lastUpdated) return latest;
+        if (!latest) return project.lastUpdated;
+        return new Date(project.lastUpdated) > new Date(latest) ? project.lastUpdated : latest;
+    }, null);
 
     return {
-        url: 'metrics/quality-metrics.json'
+        isMulti: true,
+        updatedAt: latestUpdated,
+        projects,
+        data: {
+            totals: aggregateTotals,
+            history: aggregateHistory,
+            targets: null
+        }
     };
+}
+
+function buildProjectSummary(item) {
+    const data = item.data || {};
+    const totals = data.totals || {};
+    const history = Array.isArray(data.history) ? data.history : [];
+    const latest = history[history.length - 1] || {};
+    const executed = totals.executedTests ?? latest.executedTests ?? 0;
+    const failed = totals.failedTests ?? latest.failedTests ?? 0;
+    const durationSeconds = totals.durationSeconds ?? latest.durationSeconds ?? 0;
+    const flakiness = totals.flakinessPercent ?? latest.flakinessPercent ?? 0;
+    const coverage = totals.coveragePercent ?? latest.coveragePercent ?? 0;
+    const bugs = totals.bugsPrevented ?? 0;
+    const failureRate = executed ? (failed / executed) * 100 : 0;
+    const targets = normalizeTargets(data.targets);
+    const status = buildQualityStatus(failureRate, flakiness, coverage, executed, targets);
+
+    return {
+        request: item.request,
+        sourceLabel: data.source?.label || item.request.sourceLabel,
+        sourceUrl: data.source?.url || item.request.sourceUrl,
+        lastUpdated: data.lastUpdated,
+        totals: {
+            executedTests: executed,
+            failedTests: failed,
+            durationSeconds,
+            flakinessPercent: flakiness,
+            coveragePercent: coverage,
+            bugsPrevented: bugs,
+            failureRate
+        },
+        status
+    };
+}
+
+function buildAggregatedTotals(items) {
+    let executed = 0;
+    let failed = 0;
+    let durationSeconds = 0;
+    let bugsPrevented = 0;
+    let flakinessWeight = 0;
+    let coverageWeight = 0;
+    let flakinessSum = 0;
+    let coverageSum = 0;
+
+    items.forEach(item => {
+        const totals = item.data.totals || {};
+        const history = Array.isArray(item.data.history) ? item.data.history : [];
+        const latest = history[history.length - 1] || {};
+        const exec = totals.executedTests ?? latest.executedTests ?? 0;
+        const fail = totals.failedTests ?? latest.failedTests ?? 0;
+        const dur = totals.durationSeconds ?? latest.durationSeconds ?? 0;
+        const flake = totals.flakinessPercent ?? latest.flakinessPercent ?? 0;
+        const cover = totals.coveragePercent ?? latest.coveragePercent ?? 0;
+        const bugs = totals.bugsPrevented ?? 0;
+
+        executed += exec;
+        failed += fail;
+        durationSeconds += dur;
+        bugsPrevented += bugs;
+
+        flakinessSum += flake * exec;
+        coverageSum += cover * exec;
+        flakinessWeight += exec;
+        coverageWeight += exec;
+    });
+
+    const flakinessPercent = flakinessWeight ? flakinessSum / flakinessWeight : 0;
+    const coveragePercent = coverageWeight ? coverageSum / coverageWeight : 0;
+
+    return {
+        executedTests: executed,
+        failedTests: failed,
+        durationSeconds,
+        flakinessPercent,
+        coveragePercent,
+        bugsPrevented
+    };
+}
+
+function buildAggregatedHistory(items) {
+    const bucket = new Map();
+
+    items.forEach(item => {
+        const history = Array.isArray(item.data.history) ? item.data.history : [];
+        history.forEach(entry => {
+            if (!entry || !entry.date) return;
+            if (!bucket.has(entry.date)) {
+                bucket.set(entry.date, {
+                    date: entry.date,
+                    executedTests: 0,
+                    failedTests: 0,
+                    durationSeconds: 0,
+                    flakinessSum: 0,
+                    coverageSum: 0,
+                    weight: 0
+                });
+            }
+
+            const target = bucket.get(entry.date);
+            const exec = entry.executedTests || 0;
+            target.executedTests += exec;
+            target.failedTests += entry.failedTests || 0;
+            target.durationSeconds += entry.durationSeconds || 0;
+            target.flakinessSum += (entry.flakinessPercent || 0) * exec;
+            target.coverageSum += (entry.coveragePercent || 0) * exec;
+            target.weight += exec;
+        });
+    });
+
+    return Array.from(bucket.values())
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .map(entry => ({
+            date: entry.date,
+            executedTests: entry.executedTests,
+            failedTests: entry.failedTests,
+            durationSeconds: entry.durationSeconds,
+            flakinessPercent: entry.weight ? entry.flakinessSum / entry.weight : 0,
+            coveragePercent: entry.weight ? entry.coverageSum / entry.weight : 0
+        }));
+}
+
+function renderProjectList(projects) {
+    const list = document.getElementById('projectList');
+    const empty = document.getElementById('projectEmpty');
+    if (!list || !empty) return;
+
+    if (!projects || projects.length === 0) {
+        list.innerHTML = '';
+        empty.textContent = 'Nenhum projeto carregado.';
+        return;
+    }
+
+    empty.textContent = '';
+    list.innerHTML = projects.map(project => {
+        const statusClass = project.status.className || '';
+        const statusLabel = project.status.label || 'Aguardando';
+        const failureRate = project.totals.failureRate || 0;
+        const coverage = project.totals.coveragePercent || 0;
+        const flakiness = project.totals.flakinessPercent || 0;
+        const executed = project.totals.executedTests || 0;
+        const sourceLink = project.sourceUrl || '#';
+        const sourceLabel = project.sourceLabel || 'Fonte do CI';
+
+        return `
+            <div class="project-item">
+                <div class="project-meta">
+                    <span class="project-name">${sourceLabel}</span>
+                    <a class="project-link" href="${sourceLink}" target="_blank" rel="noopener noreferrer">Fonte</a>
+                </div>
+                <div class="project-kpis">
+                    <span>Falhas: ${failureRate.toFixed(1)}%</span>
+                    <span>Cobertura: ${coverage.toFixed(0)}%</span>
+                    <span>Flakiness: ${flakiness.toFixed(1)}%</span>
+                    <span>Testes: ${executed.toLocaleString('pt-BR')}</span>
+                </div>
+                <div class="project-status">
+                    <span class="status-pill ${statusClass}">${statusLabel}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 function drawTrendChart(history) {

@@ -167,6 +167,16 @@ Parametros de URL (opcional):
 - `?metricsUrl=` para apontar para outro JSON
 - `?repo=usuario/repositorio&branch=main&path=metrics/quality-metrics.json`
 
+Multiplos projetos (repita o parametro `repo`):
+
+```
+?repo=usuario/projeto-a@main:metrics/quality-metrics.json&repo=usuario/projeto-b@main:metrics/quality-metrics.json
+```
+
+Formato aceito:
+- `repo=owner/repo@branch:path`
+- `repo=owner/repo` (usa branch/path padrao)
+
 ### Cobertura de cenarios
 Atualmente e um numero informado no JSON. Para automatizar, integre resultados do CI e atualize o arquivo via workflow.
 
