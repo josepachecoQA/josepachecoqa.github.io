@@ -839,6 +839,15 @@ section {
     color: var(--color-text);
 }
 
+.project-subtitle {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
 .project-link {
     font-size: 0.85rem;
     color: var(--color-accent);

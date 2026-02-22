@@ -592,6 +592,7 @@ function aggregateMetrics(items) {
 
 function buildProjectSummary(item) {
     const data = item.data || {};
+    const projectName = getProjectName(data, item.request);
     const totals = data.totals || {};
     const history = Array.isArray(data.history) ? data.history : [];
     const latest = history[history.length - 1] || {};
@@ -607,6 +608,7 @@ function buildProjectSummary(item) {
 
     return {
         request: item.request,
+        projectName,
         sourceLabel: data.source?.label || item.request.sourceLabel,
         sourceUrl: data.source?.url || item.request.sourceUrl,
         lastUpdated: data.lastUpdated,
@@ -731,12 +733,16 @@ function renderProjectList(projects) {
         const executed = project.totals.executedTests || 0;
         const sourceLink = project.sourceUrl || '#';
         const sourceLabel = project.sourceLabel || 'Fonte do CI';
+        const projectName = project.projectName || 'Projeto';
 
         return `
             <div class="project-item">
                 <div class="project-meta">
-                    <span class="project-name">${sourceLabel}</span>
-                    <a class="project-link" href="${sourceLink}" target="_blank" rel="noopener noreferrer">Fonte</a>
+                    <span class="project-name">${projectName}</span>
+                    <div class="project-subtitle">
+                        <span>${sourceLabel}</span>
+                        <a class="project-link" href="${sourceLink}" target="_blank" rel="noopener noreferrer">Fonte</a>
+                    </div>
                 </div>
                 <div class="project-kpis">
                     <span>Falhas: ${failureRate.toFixed(1)}%</span>
@@ -750,6 +756,16 @@ function renderProjectList(projects) {
             </div>
         `;
     }).join('');
+}
+
+function getProjectName(data, request) {
+    if (data.project && data.project.name) return data.project.name;
+    if (data.projectName) return data.projectName;
+    if (request && request.repo) {
+        const parts = request.repo.split('/');
+        return parts[parts.length - 1] || request.repo;
+    }
+    return 'Projeto principal';
 }
 
 function drawTrendChart(history) {
