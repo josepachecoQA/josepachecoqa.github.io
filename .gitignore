@@ -19,6 +19,9 @@ yarn.lock
 dist/
 build/
 *.log
+reports/
+.nyc_output/
+assets/instrumented/
 
 # OS
 Thumbs.db

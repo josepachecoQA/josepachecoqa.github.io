@@ -10,7 +10,9 @@
     "test": "npx cypress run",
     "test:open": "npx cypress open",
     "test:headed": "npx cypress run --headed",
-    "test:debug": "npx cypress run --debug"
+    "test:debug": "npx cypress run --debug",
+    "coverage:prepare": "node scripts/prepare-coverage.js",
+    "coverage:report": "nyc report --reporter=json-summary --report-dir reports/coverage"
   },
   "keywords": [
     "qa",
@@ -24,5 +26,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/seu-usuario/pagina-profissional"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.12.7",
+    "istanbul-lib-instrument": "^6.0.3",
+    "nyc": "^15.1.0"
   }
 }

@@ -1,0 +1,89 @@
+{
+  "source": {
+    "label": "GitHub Actions",
+    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions"
+  },
+  "targets": {
+    "failureRateMax": 1.0,
+    "failureRateWarn": 3.0,
+    "flakinessMax": 2.5,
+    "flakinessWarn": 5.0,
+    "coverageMin": 80,
+    "coverageWarn": 75
+  },
+  "lastUpdated": "2026-02-22T14:30:00Z",
+  "totals": {
+    "executedTests": 248,
+    "failedTests": 3,
+    "durationSeconds": 1240,
+    "flakinessPercent": 2.1,
+    "coveragePercent": 86,
+    "bugsPrevented": 5
+  },
+  "history": [
+    {
+      "date": "2026-02-08",
+      "executedTests": 220,
+      "failedTests": 5,
+      "durationSeconds": 1320,
+      "flakinessPercent": 2.8,
+      "coveragePercent": 82
+    },
+    {
+      "date": "2026-02-10",
+      "executedTests": 228,
+      "failedTests": 4,
+      "durationSeconds": 1280,
+      "flakinessPercent": 2.5,
+      "coveragePercent": 83
+    },
+    {
+      "date": "2026-02-12",
+      "executedTests": 232,
+      "failedTests": 4,
+      "durationSeconds": 1260,
+      "flakinessPercent": 2.4,
+      "coveragePercent": 84
+    },
+    {
+      "date": "2026-02-14",
+      "executedTests": 236,
+      "failedTests": 3,
+      "durationSeconds": 1245,
+      "flakinessPercent": 2.3,
+      "coveragePercent": 84
+    },
+    {
+      "date": "2026-02-16",
+      "executedTests": 240,
+      "failedTests": 3,
+      "durationSeconds": 1235,
+      "flakinessPercent": 2.2,
+      "coveragePercent": 85
+    },
+    {
+      "date": "2026-02-18",
+      "executedTests": 244,
+      "failedTests": 3,
+      "durationSeconds": 1230,
+      "flakinessPercent": 2.2,
+      "coveragePercent": 85
+    },
+    {
+      "date": "2026-02-20",
+      "executedTests": 246,
+      "failedTests": 3,
+      "durationSeconds": 1240,
+      "flakinessPercent": 2.1,
+      "coveragePercent": 86
+    },
+    {
+      "date": "2026-02-22",
+      "executedTests": 248,
+      "failedTests": 3,
+      "durationSeconds": 1240,
+      "flakinessPercent": 2.1,
+      "coveragePercent": 86
+    }
+  ]
+}

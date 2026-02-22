@@ -1,6 +1,6 @@
 # Landing Page - QA Engineer Pleno
 
-Uma landing page profissional, moderna e responsiva desenvolvida com **HTML, CSS e JavaScript puro**.
+Landing page profissional, moderna e responsiva feita com HTML, CSS e JavaScript puro.
 
 ## 🎯 Objetivo
 
@@ -8,22 +8,29 @@ Apresentar seu perfil de QA Engineer Pleno com foco em qualidade orientada ao ne
 
 ## ✨ Características
 
-- ✅ **Responsivo**: Desktop, tablet e mobile
+- ✅ **Responsivo**: desktop, tablet e mobile
 - ✅ **Sem frameworks**: HTML, CSS e JavaScript puro
-- ✅ **Animações sutis**: Efeitos fade-in, hover, float
-- ✅ **Paleta profissional**: GitHub Dark com acentos azuis
-- ✅ **Performance**: Código otimizado, lazy loading preparado
-- ✅ **Acessibilidade**: Semântica HTML, contraste adequado
+- ✅ **Dashboard de qualidade**: KPIs + tendencia via JSON local
+- ✅ **SEO completo**: OG/Twitter, JSON-LD, canonical e robots
+- ✅ **Animações sutis**: fade-in, hover, contadores animados
 - ✅ **Pronto para publicar**: GitHub Pages, Vercel, Netlify
 
 ## 📁 Estrutura de Arquivos
 
 ```
-pagina_profissional/
-├── index.html          # Estrutura HTML
-├── styles.css          # Estilos e responsividade
-├── script.js           # Interações e animações
-└── README.md           # Este arquivo
+.
+├── index.html
+├── styles.css
+├── script.js
+├── metrics/
+│   └── quality-metrics.json
+├── assets/
+│   └── images/
+│       └── profile.jpg
+├── cypress/
+│   └── e2e/
+│       └── landing-page.cy.js
+└── README.md
 ```
 
 ## 🚀 Como Usar
@@ -31,62 +38,45 @@ pagina_profissional/
 ### 1. Clonar ou Baixar
 
 ```bash
-git clone https://github.com/seu-usuario/pagina-profissional
-cd pagina-profissional
+git clone https://github.com/josepachecoQA/josepachecoqa.github.io
+cd josepachecoqa.github.io
 ```
 
-### 2. Abrir Localmente
+### 2. Rodar Localmente
 
-Simplesmente abra o arquivo `index.html` em seu navegador:
+Servidor local recomendado:
 
 ```bash
-# Windows
-start index.html
-
-# macOS
-open index.html
-
-# Linux
-xdg-open index.html
+npm start
 ```
 
-Ou use um servidor local (recomendado):
-
-```bash
-# Python 3
-python -m http.server 8000
-
-# Node.js (com http-server)
-npx http-server
-```
-
-Então acesse: `http://localhost:8000`
+Abra: `http://localhost:8000`
 
 ### 3. Customizar para seu Perfil
 
-#### Seção Hero (index.html - linhas 45-63)
+#### Seção Hero
 - Atualize a **headline** e **subheadline**
 - Modifique os textos dos botões CTA
 
-#### Seção Sobre (index.html - linhas 71-96)
+#### Seção Sobre
 - Reescreva sua apresentação profissional
 - Ajuste os números de estatísticas (anos, projetos, linguagens)
 
-#### Seção Serviços (index.html - linhas 104-140)
+#### Seção Serviços
 - Descreva suas principais áreas de atuação
 - Mantenha ou modifique os 4 cards
 
-#### Seção Diferenciais (index.html - linhas 148-174)
+#### Seção Diferenciais
 - Customize os 6 diferenciais
 - Adicione ou remova conforme sua especialidade
 
-#### Seção Portfólio (index.html - linhas 182-243)
+#### Seção Portfólio
 - Adicione seus 4 principais projetos
 - Links reais para seu GitHub
 - Descrição clara do contexto, desafio e solução
 - Tags com tecnologias utilizadas
 
-#### Seção Contato (index.html - linhas 251-268)
+#### Seção Contato
 - Atualize links de LinkedIn e GitHub
 - Coloque seu email real
 - Customize a mensagem de chamada à ação
@@ -107,8 +97,8 @@ As cores estão definidas como **CSS Custom Properties** no arquivo `styles.css`
 - Ou edite diretamente as referências de cor no CSS
 
 **Tipografia:**
-- Fonte principal: System fonts (Apple, Segoe, Roboto)
-- Fonte monospace: Courier New (para código)
+- Fonte principal: Sora
+- Fonte secundária: Source Sans 3
 
 ### 5. Adicionar Seções Extras
 
@@ -161,33 +151,34 @@ Ajuste as durações em `styles.css`:
 
 ### Modificar Fonte
 
-Em `styles.css`, procure por:
+Troque as fontes no `<head>` do HTML e ajuste as variaveis em `styles.css`.
 
-```css
---font-family: 'Sua Fonte', sans-serif;
-```
+## 📊 Dashboard de Qualidade
 
-Ou importe de Google Fonts adicionando no `<head>` do HTML:
+Os dados sao carregados de `metrics/quality-metrics.json`. O dashboard so exibe o que estiver neste arquivo.
 
-```html
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-```
+Campos usados na analise:
+- `totals.executedTests`, `totals.failedTests`, `totals.durationSeconds`
+- `totals.flakinessPercent`, `totals.coveragePercent`, `totals.bugsPrevented`
+- `targets` define metas para status e destaque
+- `history` alimenta a tendencia
+
+Parametros de URL (opcional):
+- `?metricsUrl=` para apontar para outro JSON
+- `?repo=usuario/repositorio&branch=main&path=metrics/quality-metrics.json`
+
+### Cobertura de cenarios
+Atualmente e um numero informado no JSON. Para automatizar, integre resultados do CI e atualize o arquivo via workflow.
 
 ## 🚀 Publicar Online
 
 ### GitHub Pages
 
-1. Crie um repositório no GitHub: `seu-usuario.github.io`
-2. Push dos arquivos:
-```bash
-git init
-git add .
-git commit -m "Landing page QA"
-git branch -M main
-git remote add origin https://github.com/seu-usuario/seu-usuario.github.io
-git push -u origin main
-```
-3. Acesse: `https://seu-usuario.github.io`
+1. Garanta que tudo esta commitado e enviado para o GitHub.
+2. No GitHub: Settings → Pages.
+3. Em Source, selecione Deploy from a branch.
+4. Branch: `main` e pasta `/` (root).
+5. Aguarde a URL de publicacao.
 
 ### Vercel
 
@@ -225,6 +216,7 @@ Adicione antes de `</head>`:
 - ✅ Efeitos hover nos cards
 - ✅ Contadores animados de estatísticas
 - ✅ Barra de navegação fixa com blur
+- ✅ Dashboard de qualidade com KPIs
 - ✅ Links para GitHub e LinkedIn
 - ✅ Responsividade total
 - ✅ Código comentado e organizado
@@ -236,7 +228,7 @@ O JavaScript está preparado para:
 - Animação de imagens (lazy loading)
 - Dark mode toggle (sistema detecta preferência do usuário)
 - Analytics e rastreamento de seções
-- Integração com APIs para dados dinâmicos
+- Integração com CI para atualizar metricas automaticamente
 
 ## 📧 Contato e Suporte
 
@@ -256,4 +248,4 @@ Código livre para uso pessoal e profissional.
 
 **Desenvolvido com ❤️ e JavaScript puro**
 
-Última atualização: Janeiro de 2026
+Última atualização: Fevereiro de 2026

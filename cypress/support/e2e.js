@@ -1,4 +1,5 @@
 // Cypress support file para configurações globais e custom commands
+require('@cypress/code-coverage/support');
 
 // Desabilitar exceções não capturadas
 Cypress.on('uncaught:exception', (err, runnable) => {

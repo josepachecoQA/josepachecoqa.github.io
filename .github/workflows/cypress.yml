@@ -1,5 +1,8 @@
 name: Cypress Tests
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ main ]
@@ -27,6 +30,9 @@ jobs:
       - name: Install Cypress
         run: npx cypress install
 
+      - name: Prepare coverage assets
+        run: node scripts/prepare-coverage.js
+
       - name: Start server
         run: python -m http.server 8000 &
         shell: bash
@@ -44,8 +50,25 @@ jobs:
           echo "Server failed to start"
           exit 1
 
+      - name: Prepare reports directory
+        run: mkdir -p reports
+
       - name: Run Cypress tests
-        run: npx cypress run --headless
+        id: cypress
+        continue-on-error: true
+        run: npx cypress run --headless --reporter json --quiet > reports/cypress-results.json
+
+      - name: Generate coverage summary
+        if: always()
+        continue-on-error: true
+        run: npx nyc report --reporter=json-summary --report-dir reports/coverage
+
+      - name: Update quality metrics
+        if: always()
+        env:
+          METRICS_RESULTS_PATH: reports/cypress-results.json
+          METRICS_COVERAGE_PATH: reports/coverage/coverage-summary.json
+        run: node scripts/update-quality-metrics.js
 
       - name: Upload Cypress videos
         uses: actions/upload-artifact@v4
@@ -66,3 +89,20 @@ jobs:
         run: |
           echo "## Cypress Test Results" >> $GITHUB_STEP_SUMMARY
           echo "✅ Tests completed on $(date)" >> $GITHUB_STEP_SUMMARY
+
+      - name: Fail if Cypress failed
+        if: steps.cypress.outcome == 'failure'
+        run: exit 1
+
+      - name: Commit metrics update
+        if: always() && github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        run: |
+          if git status --porcelain | grep "metrics/quality-metrics.json"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add metrics/quality-metrics.json
+            git commit -m "chore: update quality metrics [skip ci]"
+            git push
+          else
+            echo "No metrics changes"
+          fi

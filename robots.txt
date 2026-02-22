@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://josepachecoqa.github.io/sitemap.xml
