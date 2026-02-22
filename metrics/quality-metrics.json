@@ -1,23 +1,23 @@
 {
   "source": {
     "label": "GitHub Actions",
-    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions"
+    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions/runs/22281871310"
   },
   "targets": {
-    "failureRateMax": 1.0,
-    "failureRateWarn": 3.0,
+    "failureRateMax": 1,
+    "failureRateWarn": 3,
     "flakinessMax": 2.5,
-    "flakinessWarn": 5.0,
+    "flakinessWarn": 5,
     "coverageMin": 80,
     "coverageWarn": 75
   },
-  "lastUpdated": "2026-02-22T14:30:00Z",
+  "lastUpdated": "2026-02-22T17:31:07.648Z",
   "totals": {
-    "executedTests": 248,
-    "failedTests": 3,
-    "durationSeconds": 1240,
-    "flakinessPercent": 2.1,
-    "coveragePercent": 86,
+    "executedTests": 28,
+    "failedTests": 1,
+    "durationSeconds": 21,
+    "flakinessPercent": 3.571428571428571,
+    "coveragePercent": 82.24,
     "bugsPrevented": 5
   },
   "history": [
@@ -79,11 +79,11 @@
     },
     {
       "date": "2026-02-22",
-      "executedTests": 248,
-      "failedTests": 3,
-      "durationSeconds": 1240,
-      "flakinessPercent": 2.1,
-      "coveragePercent": 86
+      "executedTests": 28,
+      "failedTests": 1,
+      "durationSeconds": 21,
+      "flakinessPercent": 3.571428571428571,
+      "coveragePercent": 82.24
     }
   ]
 }
