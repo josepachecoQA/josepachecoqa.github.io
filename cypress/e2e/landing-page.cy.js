@@ -136,6 +136,37 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
     });
   });
 
+  describe('Dashboard - multiplos projetos', () => {
+    beforeEach(() => {
+      cy.readFile('metrics/quality-metrics.json').then((metrics) => {
+        cy.intercept(
+          'GET',
+          'https://raw.githubusercontent.com/josepachecoQA/qa-automation-challenge/main/metrics/quality-metrics.json',
+          metrics
+        ).as('repoA');
+        cy.intercept(
+          'GET',
+          'https://raw.githubusercontent.com/josepachecoQA/josepachecoqa.github.io/main/metrics/quality-metrics.json',
+          metrics
+        ).as('repoB');
+
+        cy.visit(`/${COVERAGE_QUERY}&repo=josepachecoQA/qa-automation-challenge&repo=josepachecoQA/josepachecoqa.github.io`);
+        cy.wait(['@repoA', '@repoB']);
+      });
+    });
+
+    it('Deve listar projetos e indicar multiplas fontes', () => {
+      cy.get('.project-item').should('have.length', 2);
+      cy.contains('.project-name', 'qa-automation-challenge').should('be.visible');
+      cy.contains('.project-name', 'josepachecoqa.github.io').should('be.visible');
+      cy.get('#metricsSource').should('contain', 'Multiplas fontes');
+    });
+
+    it('Deve indicar metas por projeto no agregado', () => {
+      cy.get('#metricsTargets').should('contain', 'Metas por projeto');
+    });
+  });
+
   describe('Responsividade', () => {
     it('Deve ser responsivo em mobile', () => {
       cy.viewport('iphone-x');
