@@ -1,7 +1,7 @@
 {
   "source": {
     "label": "GitHub Actions",
-    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions/runs/22282121734"
+    "url": "https://github.com/josepachecoQA/josepachecoqa.github.io/actions/runs/22282207804"
   },
   "targets": {
     "failureRateMax": 1,
@@ -11,7 +11,7 @@
     "coverageMin": 80,
     "coverageWarn": 75
   },
-  "lastUpdated": "2026-02-22T17:46:52.582Z",
+  "lastUpdated": "2026-02-22T17:52:21.698Z",
   "totals": {
     "executedTests": 28,
     "failedTests": 1,
