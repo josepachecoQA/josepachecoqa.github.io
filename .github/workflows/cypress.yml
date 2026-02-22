@@ -56,13 +56,13 @@ jobs:
       - name: Run Cypress tests
         id: cypress
         continue-on-error: true
-        run: npx cypress run --headless --reporter json --quiet > reports/cypress-results.json
+        run: npx cypress run --headless --reporter json --reporter-options output=reports/cypress-results.json --quiet
 
       - name: Show Cypress report on failure
         if: steps.cypress.outcome == 'failure'
         run: |
           if [ -f reports/cypress-results.json ]; then
-            node -e "const fs=require('fs');const p='reports/cypress-results.json';const raw=fs.readFileSync(p,'utf8');const data=JSON.parse(raw);const stats=data.stats||{};const failures=data.failures||[];console.log('Cypress stats:', stats);if(failures.length){console.log('Failures:');failures.slice(0,5).forEach((f,i)=>{console.log(`#${i+1} ${f.fullTitle}`);console.log(f.err && f.err.message ? f.err.message : 'No error message');});} else {console.log('No failures array found.');}"
+            node -e "const fs=require('fs');const p='reports/cypress-results.json';const raw=fs.readFileSync(p,'utf8');try{const data=JSON.parse(raw);const stats=data.stats||{};const failures=data.failures||[];console.log('Cypress stats:', stats);if(failures.length){console.log('Failures:');failures.slice(0,5).forEach((f,i)=>{console.log(`#${i+1} ${f.fullTitle}`);console.log(f.err && f.err.message ? f.err.message : 'No error message');});} else {console.log('No failures array found.');}}catch(e){console.log('Failed to parse cypress-results.json');console.log(raw.split('\n').slice(0,40).join('\n'));}"
           else
             echo "No cypress-results.json found"
           fi
