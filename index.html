@@ -50,6 +50,7 @@
                 <li><a href="#sobre" class="nav-link">Sobre</a></li>
                 <li><a href="#servicos" class="nav-link">Serviços</a></li>
                 <li><a href="#diferenciais" class="nav-link">Diferenciais</a></li>
+                <li><a href="#quality" class="nav-link">Quality Engineering</a></li>
                 <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
                 <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
                 <li><a href="#contato" class="nav-link cta-link">Conversar</a></li>
@@ -212,6 +213,69 @@
     </section>
 
     <!-- ========================================
+         QUALITY ENGINEERING
+         ======================================== -->
+    <section id="quality" class="quality">
+        <div class="container">
+            <h2 class="section-title">Quality Engineering</h2>
+            <p class="quality-intro">Qualidade não é apenas encontrar bugs, é construir sistemas confiáveis desde o início com prevenção de falhas, automação e melhoria contínua.</p>
+
+            <div class="quality-grid">
+                <article class="quality-card">
+                    <div class="quality-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="6" />
+                            <path d="M 32 52 L 45 64 L 70 38" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3>Estratégia de Qualidade</h3>
+                    <ul class="quality-list">
+                        <li>Validação end-to-end da landing page</li>
+                        <li>Testes de navegação</li>
+                        <li>Validação de links externos</li>
+                        <li>Testes de responsividade</li>
+                    </ul>
+                </article>
+
+                <article class="quality-card">
+                    <div class="quality-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect x="22" y="22" width="56" height="56" rx="10" fill="none" stroke="currentColor" stroke-width="6" />
+                            <path d="M 34 50 L 66 50" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+                            <path d="M 50 34 L 50 66" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3>Automação de Testes</h3>
+                    <p>Testes automatizados com Cypress garantem que funcionalidades críticas continuem funcionando a cada mudança.</p>
+                </article>
+
+                <article class="quality-card">
+                    <div class="quality-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M 30 35 L 70 35 L 80 50 L 70 65 L 30 65 L 20 50 Z" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" />
+                            <circle cx="50" cy="50" r="10" fill="none" stroke="currentColor" stroke-width="6" />
+                        </svg>
+                    </div>
+                    <h3>Integração Contínua</h3>
+                    <p>Execução automática de testes via GitHub Actions sempre que há alterações, mantendo qualidade e visibilidade.</p>
+                </article>
+
+                <article class="quality-card">
+                    <div class="quality-icon">
+                        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M 30 60 C 38 40 62 40 70 60" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+                            <path d="M 38 35 L 50 25 L 62 35" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M 50 25 L 50 75" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <h3>Mindset de Engenharia</h3>
+                    <p>QA como prevenção de problemas, redução de retrabalho e aumento da confiabilidade do sistema.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
          PORTFÓLIO
          ======================================== -->
     <section id="portfolio" class="portfolio">
@@ -363,11 +427,11 @@
             <div class="dashboard-grid">
                 <div class="dashboard-card">
                     <div class="dashboard-card-header">
-                        <h3>Qualidade nas ultimas execucoes</h3>
+                        <h3>Qualidade nas últimas execuções</h3>
                         <span class="status-pill" id="qualityStatus">Aguardando</span>
                     </div>
                     <div class="chart-wrap">
-                        <canvas id="qualityTrendChart" width="860" height="280" aria-label="Grafico de tendencia"></canvas>
+                        <canvas id="qualityTrendChart" width="860" height="280" aria-label="Gráfico de tendência"></canvas>
                     </div>
                     <div class="chart-legend">
                         <span class="legend-item"><span class="legend-dot legend-failure"></span>Taxa de falhas</span>
@@ -378,13 +442,13 @@
 
                 <div class="dashboard-card">
                     <div class="dashboard-card-header">
-                        <h3>Indicadores de confianca</h3>
+                        <h3>Indicadores de confiança</h3>
                         <span class="helper-text" id="metricsTargets">Meta orientada a risco</span>
                     </div>
                     <div class="quality-rows">
                         <div class="quality-row">
                             <div class="quality-labels">
-                                <span>Cobertura de cenarios</span>
+                                <span>Cobertura de cenários</span>
                                 <span id="barCoverageValue">--</span>
                             </div>
                             <div class="quality-bar">
@@ -431,20 +495,20 @@
                 <div class="dashboard-card">
                     <div class="dashboard-card-header">
                         <h3>Projetos monitorados</h3>
-                        <span class="helper-text" id="projectsHint">Adicione projetos com o parametro repo na URL.</span>
+                        <span class="helper-text" id="projectsHint">Adicione projetos com o parâmetro repo na URL.</span>
                     </div>
                     <div class="project-list" id="projectList"></div>
-                    <p class="project-empty" id="projectEmpty">Adicione projetos publicos para comparar indicadores.</p>
+                    <p class="project-empty" id="projectEmpty">Adicione projetos públicos para comparar indicadores.</p>
                 </div>
             </div>
 
             <div class="dashboard-footer">
                 <div class="dashboard-updated">
-                    <span>Ultima atualizacao:</span>
+                    <span>Última atualização:</span>
                     <strong id="dashboardUpdated">--</strong>
                 </div>
                 <a class="dashboard-link" id="metricsSource" href="#" target="_blank" rel="noopener noreferrer">Ver fonte dos dados</a>
-                <span class="dashboard-status" id="dashboardStatus">Dados nao carregados</span>
+                <span class="dashboard-status" id="dashboardStatus">Dados não carregados</span>
             </div>
         </div>
     </section>

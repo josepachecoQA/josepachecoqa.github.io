@@ -562,6 +562,104 @@ section {
 /* ========================================
    SEÇÃO PORTFÓLIO
    ======================================== */
+.quality {
+    background: linear-gradient(130deg, rgba(16, 24, 35, 0.98), rgba(13, 17, 23, 0.98));
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.quality-intro {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto var(--spacing-2xl);
+    color: var(--color-text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.quality-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.quality-card {
+    padding: var(--spacing-lg);
+    background: rgba(13, 17, 23, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    min-height: 220px;
+}
+
+.quality-card h3 {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+.quality-card p {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+.quality-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    background: rgba(88, 166, 255, 0.12);
+    color: var(--color-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quality-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.quality-list {
+    list-style: none;
+    display: grid;
+    gap: var(--spacing-xs);
+    padding: 0;
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.quality-list li {
+    position: relative;
+    padding-left: 18px;
+}
+
+.quality-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 8px rgba(121, 192, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+    .quality-intro {
+        font-size: 1rem;
+    }
+}
+
+/* ========================================
+   SEÇÃO PORTFÓLIO
+   ======================================== */
 .portfolio {
     background-color: var(--color-dark);
 }

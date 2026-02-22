@@ -16,6 +16,7 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
         cy.contains('a', 'Sobre').should('have.attr', 'href', '#sobre');
         cy.contains('a', 'Serviços').should('have.attr', 'href', '#servicos');
         cy.contains('a', 'Diferenciais').should('have.attr', 'href', '#diferenciais');
+        cy.contains('a', 'Quality Engineering').should('have.attr', 'href', '#quality');
         cy.contains('a', 'Portfólio').should('have.attr', 'href', '#portfolio');
         cy.contains('a', 'Dashboard').should('have.attr', 'href', '#dashboard');
         cy.contains('a', 'Conversar').should('have.attr', 'href', '#contato');
@@ -96,6 +97,28 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
     });
   });
 
+  describe('Quality Engineering', () => {
+    beforeEach(() => {
+      cy.visit(`/${COVERAGE_QUERY}`);
+    });
+
+    it('Deve exibir a secao Quality Engineering', () => {
+      cy.get('#quality').should('be.visible');
+      cy.get('#quality .section-title').should('contain', 'Quality Engineering');
+      cy.get('#quality .quality-intro').should('be.visible');
+    });
+
+    it('Deve exibir 4 cards com topicos principais', () => {
+      cy.get('#quality .quality-card').should('have.length', 4);
+      cy.get('#quality').within(() => {
+        cy.contains('h3', 'Estratégia de Qualidade').should('be.visible');
+        cy.contains('h3', 'Automação de Testes').should('be.visible');
+        cy.contains('h3', 'Integração Contínua').should('be.visible');
+        cy.contains('h3', 'Mindset de Engenharia').should('be.visible');
+      });
+    });
+  });
+
   describe('Portfolio', () => {
     beforeEach(() => {
       cy.visit(`/${COVERAGE_QUERY}`);
@@ -131,7 +154,7 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
     });
 
     it('Deve exibir status estavel', () => {
-      cy.get('#qualityStatus').invoke('text').should('match', /Estavel|Atenção|Atencao|Risco alto|Sem dados/);
+      cy.get('#qualityStatus').invoke('text').should('match', /Estável|Atenção|Risco alto|Sem dados/);
       cy.get('#qualitySummary').should('contain', 'metas: falhas <=');
     });
   });
@@ -159,7 +182,7 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
       cy.get('.project-item').should('have.length', 2);
       cy.contains('.project-name', 'qa-automation-challenge').should('be.visible');
       cy.contains('.project-name', 'josepachecoqa.github.io').should('be.visible');
-      cy.get('#metricsSource').should('contain', 'Multiplas fontes');
+      cy.get('#metricsSource').should('contain', 'Múltiplas fontes');
     });
 
     it('Deve indicar metas por projeto no agregado', () => {

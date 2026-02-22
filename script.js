@@ -281,19 +281,19 @@ async function loadQualityMetrics() {
         const successes = results.filter(result => result.data);
 
         if (successes.length === 0) {
-            throw new Error('Falha ao carregar metricas');
+            throw new Error('Falha ao carregar métricas');
         }
 
         const aggregated = aggregateMetrics(successes);
         renderQualityDashboard(aggregated.data, { isMulti: aggregated.isMulti });
         renderProjectList(aggregated.projects);
 
-        const updated = aggregated.updatedAt ? formatDateTime(aggregated.updatedAt) : 'Nao informado';
+        const updated = aggregated.updatedAt ? formatDateTime(aggregated.updatedAt) : 'Não informado';
         updatedEl.textContent = updated;
 
         if (aggregated.isMulti) {
             sourceEl.href = '#';
-            sourceEl.textContent = 'Multiplas fontes';
+            sourceEl.textContent = 'Múltiplas fontes';
         } else {
             const project = aggregated.projects[0];
             sourceEl.href = project.sourceUrl || project.request.url || '#';
@@ -301,9 +301,9 @@ async function loadQualityMetrics() {
         }
         statusEl.textContent = 'Dados atualizados';
     } catch (error) {
-        console.warn('Erro ao carregar metricas:', error);
+        console.warn('Erro ao carregar métricas:', error);
         statusEl.textContent = 'Erro ao carregar dados';
-        updatedEl.textContent = 'Nao disponivel';
+        updatedEl.textContent = 'Não disponível';
     }
 }
 
@@ -355,7 +355,7 @@ function setText(id, value) {
 
 function buildDeltaText(previous, latest, field, label, isDuration) {
     if (!previous || !latest || previous[field] == null || latest[field] == null) {
-        return 'Sem comparacao recente';
+        return 'Sem comparação recente';
     }
 
     const delta = latest[field] - previous[field];
@@ -363,10 +363,10 @@ function buildDeltaText(previous, latest, field, label, isDuration) {
     const value = isDuration ? formatDuration(Math.abs(delta)) : Math.abs(delta).toFixed(1).replace('.0', '');
 
     if (delta === 0) {
-        return `Estavel em ${formatDeltaValue(latest[field], label, isDuration)}`;
+        return `Estável em ${formatDeltaValue(latest[field], label, isDuration)}`;
     }
 
-    return `${signal}${value} ${label} vs ultima execucao`;
+    return `${signal}${value} ${label} vs última execução`;
 }
 
 function formatDeltaValue(value, label, isDuration) {
@@ -400,11 +400,11 @@ function buildQualityStatus(failureRate, flakiness, coverage, executed, targets)
     }
 
     if (failureRate <= targets.failureRateMax && flakiness <= targets.flakinessMax && coverage >= targets.coverageMin) {
-        return { label: 'Estavel', className: 'is-good' };
+        return { label: 'Estável', className: 'is-good' };
     }
 
     if (failureRate <= targets.failureRateWarn && flakiness <= targets.flakinessWarn && coverage >= targets.coverageWarn) {
-        return { label: 'Atencao', className: 'is-warning' };
+        return { label: 'Atenção', className: 'is-warning' };
     }
 
     return { label: 'Risco alto', className: 'is-danger' };
@@ -415,14 +415,14 @@ function updateSummary(failureRate, flakiness, coverage, executed, bugs, targets
     if (!summary) return;
 
     if (executed === 0) {
-        summary.textContent = 'Nenhum teste executado no periodo mais recente.';
+        summary.textContent = 'Nenhum teste executado no período mais recente.';
         return;
     }
 
     const parts = [
         `Taxa de falhas em ${failureRate.toFixed(1)}%`,
         `flakiness em ${flakiness.toFixed(1)}%`,
-        `cobertura de cenarios em ${coverage.toFixed(0)}%`,
+        `cobertura de cenários em ${coverage.toFixed(0)}%`,
         `bugs evitados registrados: ${bugs}`,
         isMulti
             ? 'metas por projeto (consulte a lista abaixo)'
@@ -436,7 +436,7 @@ function updateTargetsText(targets, isMulti) {
     const targetsEl = document.getElementById('metricsTargets');
     if (!targetsEl) return;
     if (isMulti) {
-        targetsEl.textContent = 'Metas por projeto (status agregado usa valores padrao).';
+        targetsEl.textContent = 'Metas por projeto (status agregado usa valores padrão).';
         return;
     }
     targetsEl.textContent = `Metas: falhas <= ${targets.failureRateMax.toFixed(1)}%, flakiness <= ${targets.flakinessMax.toFixed(1)}%, cobertura >= ${targets.coverageMin.toFixed(0)}%`;
@@ -508,7 +508,7 @@ function getMetricsRequests() {
     return [{
         id: 'local',
         url: 'metrics/quality-metrics.json',
-        sourceLabel: 'Repositorio local'
+        sourceLabel: 'Repositório local'
     }];
 }
 
@@ -552,7 +552,7 @@ async function fetchMetrics(request) {
         const data = await response.json();
         return { request, data };
     } catch (error) {
-        console.warn('Erro ao carregar metricas:', request.url, error);
+        console.warn('Erro ao carregar métricas:', request.url, error);
         return { request, error };
     }
 }
@@ -781,7 +781,7 @@ function drawTrendChart(history) {
     if (!history.length) {
         ctx.fillStyle = '#8b949e';
         ctx.font = '14px sans-serif';
-        ctx.fillText('Sem dados de tendencia.', 16, 28);
+        ctx.fillText('Sem dados de tendência.', 16, 28);
         return;
     }
 
@@ -874,6 +874,6 @@ function formatDuration(totalSeconds) {
 
 function formatDateTime(isoString) {
     const date = new Date(isoString);
-    if (Number.isNaN(date.getTime())) return 'Nao informado';
+    if (Number.isNaN(date.getTime())) return 'Não informado';
     return date.toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
 }
