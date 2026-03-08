@@ -28,6 +28,13 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
       cy.get('#sobre').should('be.visible');
       cy.get('.sobre-text').should('contain.text', 'Sou QA Engineer');
     });
+
+    it('Deve exibir botao lateral para o QA Lab', () => {
+      cy.get('.side-lab-link')
+        .should('be.visible')
+        .and('contain.text', 'Ir para QA Lab')
+        .and('have.attr', 'href', 'qa-lab.html');
+    });
   });
 
   describe('Hero', () => {
@@ -127,6 +134,15 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
     it('Deve exibir cards do portfolio', () => {
       cy.get('#portfolio').should('be.visible');
       cy.get('.portfolio-grid .portfolio-card').should('have.length.greaterThan', 3);
+        cy.get('.portfolio-card').each(($card) => {
+          cy.wrap($card).find('h3').should('be.visible');
+          cy.wrap($card).find('p').should('have.length.at.least', 1);
+        });
+        cy.contains('.portfolio-card h3', 'QA Mini Lab - Projeto Educacional')
+          .should('be.visible');
+        cy.contains('.portfolio-card', 'QA Mini Lab - Projeto Educacional')
+          .find('a.portfolio-link')
+          .should('have.attr', 'href', 'qa-lab.html');
     });
 
     it('Deve ter links externos seguros', () => {

@@ -2,6 +2,8 @@
 
 Landing page profissional, moderna e responsiva feita com HTML, CSS e JavaScript puro.
 
+> Estado completo da entrega atual: **README-ESTADO-ATUAL.md**
+
 ## 🎯 Objetivo
 
 Apresentar seu perfil de QA Engineer Pleno com foco em qualidade orientada ao negócio, prevenção de riscos e valor entregue. Otimizada para recrutadores e líderes técnicos.
@@ -11,6 +13,7 @@ Apresentar seu perfil de QA Engineer Pleno com foco em qualidade orientada ao ne
 - ✅ **Responsivo**: desktop, tablet e mobile
 - ✅ **Sem frameworks**: HTML, CSS e JavaScript puro
 - ✅ **Dashboard de qualidade**: KPIs + tendencia via JSON local
+- ✅ **QA Mini Lab separado**: missões, workspace, bug report e modo desafio
 - ✅ **SEO completo**: OG/Twitter, JSON-LD, canonical e robots
 - ✅ **Animações sutis**: fade-in, hover, contadores animados
 - ✅ **Pronto para publicar**: GitHub Pages, Vercel, Netlify
@@ -22,6 +25,10 @@ Apresentar seu perfil de QA Engineer Pleno com foco em qualidade orientada ao ne
 ├── index.html
 ├── styles.css
 ├── script.js
+├── qa-lab.html
+├── qa-lab.css
+├── qa-lab.js
+├── README-ESTADO-ATUAL.md
 ├── metrics/
 │   └── quality-metrics.json
 ├── assets/
@@ -29,7 +36,9 @@ Apresentar seu perfil de QA Engineer Pleno com foco em qualidade orientada ao ne
 │       └── profile.jpg
 ├── cypress/
 │   └── e2e/
-│       └── landing-page.cy.js
+│       ├── landing-page.cy.js
+│       ├── qa-lab.cy.js
+│       └── qa-lab-challenge.cy.js
 └── README.md
 ```
 

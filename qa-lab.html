@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QA Lab prático com missões, formulários e funcionalidades para testar e aprender QA na prática.">
+    <meta name="robots" content="index, follow">
+    <title>QA Lab Hub | Mini Lab de Testes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="qa-lab.css">
+</head>
+<body class="qa-lab-page">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-text">QA Lab Hub</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Voltar para Landing</a></li>
+                <li><a href="#missions" class="nav-link">Missões</a></li>
+                <li><a href="#workspace" class="nav-link">Workspace</a></li>
+                <li><a href="#challenge" class="nav-link">Modo desafio</a></li>
+                <li><a href="#reports" class="nav-link">Bug Reports</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero qa-lab-hero" id="top">
+        <div class="hero-content">
+            <h1 class="hero-title">QA Mini Lab para prática real</h1>
+            <p class="hero-subtitle">Ambiente didático para testar fluxos de cadastro, login, perfil, busca/filtro e gestão de bugs com cenários próximos do mercado.</p>
+            <div class="hero-cta">
+                <a href="#workspace" class="btn btn-primary">Iniciar laboratório</a>
+                <button type="button" id="resetEnvironment" class="btn btn-secondary">Resetar ambiente</button>
+            </div>
+            <p class="qa-lab-helper">Progresso salvo localmente no navegador.</p>
+        </div>
+    </section>
+
+    <section id="challenge" class="qa-lab-section is-alt">
+        <div class="container">
+            <h2 class="section-title">Modo desafio (bugs pedagógicos)</h2>
+            <p class="qa-lab-intro">Ative com a chave do mentor para habilitar comportamentos intencionalmente inconsistentes e praticar investigação avançada.</p>
+            <div class="challenge-card">
+                <div class="challenge-status">
+                    <span>Status:</span>
+                    <strong id="challengeStatus" class="status-pill is-neutral">Desativado</strong>
+                </div>
+                <div class="challenge-controls">
+                    <input id="challengeKey" type="password" placeholder="Digite a chave do desafio">
+                    <button id="activateChallenge" type="button" class="btn btn-primary">Ativar modo desafio</button>
+                    <button id="deactivateChallenge" type="button" class="btn btn-secondary">Desativar</button>
+                </div>
+                <p class="form-feedback" id="challengeFeedback" role="status" aria-live="polite"></p>
+                <p class="qa-lab-helper">Mentores: use o gabarito em <a href="LAB-GABARITO-MENTORIA.md" target="_blank" rel="noopener noreferrer">LAB-GABARITO-MENTORIA.md</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="missions" class="qa-lab-section">
+        <div class="container">
+            <h2 class="section-title">Missões de QA</h2>
+            <p class="qa-lab-intro">Complete as missões para praticar análise de risco, testes funcionais e reporte de defeitos.</p>
+            <div class="mission-summary" id="missionSummary" role="status" aria-live="polite">0 de 6 missões concluídas</div>
+            <section class="mission-rubric" aria-label="Critérios de avaliação didática">
+                <h3>Como usar este laboratório de forma profissional</h3>
+                <p>Para cada missão, valide objetivo, critérios de aprovação e só depois consulte as dicas progressivas.</p>
+                <ul>
+                    <li><strong>0 pontos:</strong> não validou comportamento ou não evidenciou resultado.</li>
+                    <li><strong>1 ponto:</strong> validou parcialmente com cobertura incompleta.</li>
+                    <li><strong>2 pontos:</strong> validou cenário positivo, negativo e registrou evidência clara.</li>
+                </ul>
+            </section>
+            <div class="mission-grid" id="missionGrid">
+                <article class="mission-card" data-mission="register-user">
+                    <h3>Missão 1 · Cadastro</h3>
+                    <p>Cadastre um usuário válido e valide mensagens de erro para dados inválidos.</p>
+                    <p class="mission-goal"><strong>Objetivo didático:</strong> validar regras de obrigatoriedade, formato de e-mail e força de senha.</p>
+                    <ul class="mission-criteria">
+                        <li>Cadastro válido concluído com mensagem de sucesso</li>
+                        <li>Validação de campo obrigatório ausente</li>
+                        <li>Validação para e-mail ou senha inválidos</li>
+                    </ul>
+                    <details class="mission-hint">
+                        <summary>Dica progressiva</summary>
+                        Comece pelo fluxo feliz e depois rode casos negativos alterando apenas um campo por vez.
+                    </details>
+                    <span class="mission-tag">Funcional</span>
+                </article>
+                <article class="mission-card" data-mission="login-success">
+                    <h3>Missão 2 · Login</h3>
+                    <p>Realize login com credenciais válidas e valide comportamento para falha.</p>
+                    <p class="mission-goal"><strong>Objetivo didático:</strong> testar autenticação e feedback para sucesso/erro.</p>
+                    <ul class="mission-criteria">
+                        <li>Login válido altera estado da sessão</li>
+                        <li>Login inválido retorna mensagem clara</li>
+                        <li>Tentativas inválidas ficam registradas no log</li>
+                    </ul>
+                    <details class="mission-hint">
+                        <summary>Dica progressiva</summary>
+                        Cadastre um usuário antes e compare a mensagem do status da sessão antes/depois.
+                    </details>
+                    <span class="mission-tag">Autenticação</span>
+                </article>
+                <article class="mission-card" data-mission="profile-update">
+                    <h3>Missão 3 · Perfil</h3>
+                    <p>Atualize nome e bio do perfil, confirmando persistência de dados.</p>
+                    <p class="mission-goal"><strong>Objetivo didático:</strong> validar limites de campo e persistência local.</p>
+                    <ul class="mission-criteria">
+                        <li>Nome e bio salvos com sucesso</li>
+                        <li>Bio respeita limite máximo permitido</li>
+                        <li>Dados persistem após refresh da página</li>
+                    </ul>
+                    <details class="mission-hint">
+                        <summary>Dica progressiva</summary>
+                        Teste com bio próxima ao limite e acima do limite para comparar resposta do formulário.
+                    </details>
+                    <span class="mission-tag">Persistência</span>
+                </article>
+                <article class="mission-card" data-mission="catalog-filter">
+                    <h3>Missão 4 · Catálogo</h3>
+                    <p>Aplique busca e filtros, validando ordenação e paginação dos itens.</p>
+                    <p class="mission-goal"><strong>Objetivo didático:</strong> verificar consistência entre filtro, busca e paginação.</p>
+                    <ul class="mission-criteria">
+                        <li>Filtro por tipo reduz o conjunto de resultados</li>
+                        <li>Busca por termo retorna cenários esperados</li>
+                        <li>Paginação navega sem quebrar o estado do filtro</li>
+                    </ul>
+                    <details class="mission-hint">
+                        <summary>Dica progressiva</summary>
+                        Aplique filtro, depois busca e só então navegue entre páginas para detectar inconsistências.
+                    </details>
+                    <span class="mission-tag">UI/Data</span>
+                </article>
+                <article class="mission-card" data-mission="invalid-login">
+                    <h3>Missão 5 · Negativo</h3>
+                    <p>Execute tentativa de login inválida e confirme feedback de erro.</p>
+                    <p class="mission-goal"><strong>Objetivo didático:</strong> exercitar testes negativos e comunicação de falha.</p>
+                    <ul class="mission-criteria">
+                        <li>Erro exibido para credenciais inválidas</li>
+                        <li>Sessão não é autenticada indevidamente</li>
+                        <li>Log registra tentativa com rastreabilidade</li>
+                    </ul>
+                    <details class="mission-hint">
+                        <summary>Dica progressiva</summary>
+                        Tente e-mail correto com senha errada e depois e-mail inexistente para comparar comportamento.
+                    </details>
+                    <span class="mission-tag">Teste negativo</span>
+                </article>
+                <article class="mission-card" data-mission="bug-report">
+                    <h3>Missão 6 · Report</h3>
+                    <p>Registre um bug e gere um relatório em Markdown para compartilhar.</p>
+                    <p class="mission-goal"><strong>Objetivo didático:</strong> transformar evidência técnica em comunicação objetiva.</p>
+                    <ul class="mission-criteria">
+                        <li>Todos os campos do bug preenchidos</li>
+                        <li>Preview em Markdown gerado corretamente</li>
+                        <li>Exportação para clipboard executada</li>
+                    </ul>
+                    <details class="mission-hint">
+                        <summary>Dica progressiva</summary>
+                        Use passos enumerados e descreva esperado x atual de forma observável e reproduzível.
+                    </details>
+                    <span class="mission-tag">Comunicação QA</span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section id="workspace" class="qa-lab-section is-alt">
+        <div class="container">
+            <h2 class="section-title">Workspace de testes</h2>
+            <div class="workspace-grid">
+                <div class="workspace-card">
+                    <h3>Cadastro de usuário</h3>
+                    <form id="registerForm" class="qa-form" novalidate>
+                        <label>Nome
+                            <input id="registerName" name="name" type="text" placeholder="Ex: Ana QA">
+                        </label>
+                        <label>E-mail
+                            <input id="registerEmail" name="email" type="email" placeholder="ana@empresa.com">
+                        </label>
+                        <label>Perfil
+                            <select id="registerRole" name="role">
+                                <option value="">Selecione</option>
+                                <option value="junior">QA Júnior</option>
+                                <option value="pleno">QA Pleno</option>
+                                <option value="senior">QA Sênior</option>
+                            </select>
+                        </label>
+                        <label>Senha
+                            <input id="registerPassword" name="password" type="password" placeholder="Mínimo 8 caracteres">
+                        </label>
+                        <label class="form-check">
+                            <input id="registerTerms" name="terms" type="checkbox">
+                            <span>Aceito os termos do laboratório</span>
+                        </label>
+                        <button id="registerSubmit" type="submit" class="btn btn-primary">Cadastrar</button>
+                        <p class="form-feedback" id="registerFeedback" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+
+                <div class="workspace-card">
+                    <h3>Login simulado</h3>
+                    <form id="loginForm" class="qa-form" novalidate>
+                        <label>E-mail
+                            <input id="loginEmail" name="email" type="email" placeholder="Use um e-mail cadastrado">
+                        </label>
+                        <label>Senha
+                            <input id="loginPassword" name="password" type="password" placeholder="Informe a senha cadastrada">
+                        </label>
+                        <button id="loginSubmit" type="submit" class="btn btn-primary">Entrar</button>
+                        <p class="form-feedback" id="loginFeedback" role="status" aria-live="polite"></p>
+                    </form>
+                    <div class="session-box">
+                        <span>Status da sessão:</span>
+                        <strong id="sessionStatus" role="status" aria-live="polite">Não autenticado</strong>
+                    </div>
+                </div>
+
+                <div class="workspace-card">
+                    <h3>Perfil do usuário</h3>
+                    <form id="profileForm" class="qa-form" novalidate>
+                        <label>Nome de exibição
+                            <input id="profileName" name="profileName" type="text" placeholder="Nome visível no sistema">
+                        </label>
+                        <label>Bio (até 160)
+                            <textarea id="profileBio" name="profileBio" rows="4" placeholder="Descreva foco de QA"></textarea>
+                        </label>
+                        <div class="counter" id="bioCounter">0/160</div>
+                        <button id="profileSubmit" type="submit" class="btn btn-primary">Salvar perfil</button>
+                        <p class="form-feedback" id="profileFeedback" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+
+                <div class="workspace-card" id="reports">
+                    <h3>Bug report</h3>
+                    <form id="bugForm" class="qa-form" novalidate>
+                        <label>Título do bug
+                            <input id="bugTitle" name="title" type="text" placeholder="Ex: Botão de login não responde">
+                        </label>
+                        <label>Severidade
+                            <select id="bugSeverity" name="severity">
+                                <option value="">Selecione</option>
+                                <option value="baixa">Baixa</option>
+                                <option value="media">Média</option>
+                                <option value="alta">Alta</option>
+                                <option value="critica">Crítica</option>
+                            </select>
+                        </label>
+                        <label>Passos para reproduzir
+                            <textarea id="bugSteps" name="steps" rows="3"></textarea>
+                        </label>
+                        <label>Resultado esperado
+                            <textarea id="bugExpected" name="expected" rows="2"></textarea>
+                        </label>
+                        <label>Resultado atual
+                            <textarea id="bugActual" name="actual" rows="2"></textarea>
+                        </label>
+                        <div class="form-row">
+                            <button id="bugSubmit" type="submit" class="btn btn-primary">Salvar bug</button>
+                            <button id="exportBug" type="button" class="btn btn-secondary">Exportar Markdown</button>
+                        </div>
+                        <p class="form-feedback" id="bugFeedback" role="status" aria-live="polite"></p>
+                    </form>
+                    <pre id="bugPreview" class="bug-preview" aria-live="polite">Nenhum bug registrado ainda.</pre>
+                </div>
+
+                <div class="workspace-card" id="api-simulation">
+                    <h3>Simulador de API</h3>
+                    <p class="qa-lab-helper">Treine comportamento de integração com cenários de sucesso, falha e timeout.</p>
+                    <form id="apiSimForm" class="qa-form" novalidate>
+                        <label>Endpoint
+                            <select id="apiEndpoint" name="apiEndpoint">
+                                <option value="/auth/login">POST /auth/login</option>
+                                <option value="/users/profile">GET /users/profile</option>
+                                <option value="/bugs">POST /bugs</option>
+                            </select>
+                        </label>
+                        <label>Cenário
+                            <select id="apiMode" name="apiMode">
+                                <option value="success">200 · Sucesso</option>
+                                <option value="unauthorized">401 · Não autorizado</option>
+                                <option value="server-error">500 · Erro interno</option>
+                                <option value="timeout">Timeout</option>
+                            </select>
+                        </label>
+                        <label>Latência simulada (ms)
+                            <input id="apiLatency" name="apiLatency" type="number" min="100" max="8000" step="100" value="500">
+                        </label>
+                        <label>Status esperado
+                            <select id="apiExpectedStatus" name="apiExpectedStatus">
+                                <option value="200">200</option>
+                                <option value="401">401</option>
+                                <option value="500">500</option>
+                                <option value="TIMEOUT">TIMEOUT</option>
+                            </select>
+                        </label>
+                        <label>Mensagem esperada deve conter
+                            <input id="apiExpectedMessage" name="apiExpectedMessage" type="text" placeholder="Ex: sucesso, não autorizado, erro interno">
+                        </label>
+                        <label>SLA máximo de latência (ms)
+                            <input id="apiSla" name="apiSla" type="number" min="100" max="8000" step="100" value="1200">
+                        </label>
+                        <button id="apiSimSubmit" type="submit" class="btn btn-primary">Executar chamada simulada</button>
+                        <p class="form-feedback" id="apiSimFeedback" role="status" aria-live="polite"></p>
+                    </form>
+                    <pre id="apiSimResult" class="bug-preview" aria-live="polite">Nenhuma chamada simulada executada.</pre>
+                    <div class="api-evidence">
+                        <h4>Checklist de evidências (esperado x atual)</h4>
+                        <p id="apiEvidenceSummary" class="qa-lab-helper" aria-live="polite">Nenhuma evidência avaliada.</p>
+                        <ul id="apiEvidenceList" class="activity-log">
+                            <li class="activity-item">Execute uma chamada para avaliar os critérios.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="qa-lab-section" id="catalog">
+        <div class="container">
+            <h2 class="section-title">Catálogo de cenários testáveis</h2>
+            <div class="catalog-controls">
+                <input id="scenarioSearch" type="search" placeholder="Buscar cenário por nome ou tag">
+                <select id="scenarioType">
+                    <option value="all">Todos os tipos</option>
+                    <option value="Funcional">Funcional</option>
+                    <option value="UI">UI</option>
+                    <option value="API">API</option>
+                    <option value="Regressão">Regressão</option>
+                </select>
+                <select id="scenarioSort">
+                    <option value="risk-desc">Risco (alto → baixo)</option>
+                    <option value="risk-asc">Risco (baixo → alto)</option>
+                    <option value="name-asc">Nome (A-Z)</option>
+                </select>
+            </div>
+            <div id="scenarioList" class="scenario-list"></div>
+            <div class="pagination">
+                <button id="prevPage" type="button" class="btn btn-secondary">Anterior</button>
+                <span id="pageInfo">Página 1</span>
+                <button id="nextPage" type="button" class="btn btn-secondary">Próxima</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="qa-lab-section is-alt" id="activity">
+        <div class="container">
+            <h2 class="section-title">Log de atividade</h2>
+            <p class="qa-lab-intro">Use este histórico para praticar rastreabilidade de testes.</p>
+            <ul id="activityLog" class="activity-log"></ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 QA Lab Hub | Ambiente de prática para comunidade QA.</p>
+            <p class="footer-note">Feito para estudo prático de testes manuais e automação.</p>
+        </div>
+    </footer>
+
+    <script src="qa-lab-rules.js"></script>
+    <script src="qa-lab.js"></script>
+</body>
+</html>

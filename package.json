@@ -8,6 +8,8 @@
     "build": "echo 'Build completo. Pronto para publicação.'",
     "deploy": "echo 'Use GitHub Pages, Vercel ou Netlify para deploy'",
     "test": "npx cypress run",
+    "test:unit": "node --test tests/**/*.test.js",
+    "test:qa": "npm run test:unit ; npx cypress run --spec cypress/e2e/qa-lab.cy.js,cypress/e2e/qa-lab-challenge.cy.js",
     "test:open": "npx cypress open",
     "test:headed": "npx cypress run --headed",
     "test:debug": "npx cypress run --debug",
