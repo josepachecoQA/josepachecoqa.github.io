@@ -20,12 +20,57 @@ function fileExists(filePath) {
     }
 }
 
-function extractJson(text) {
-    const start = text.indexOf('{');
-    const end = text.lastIndexOf('}');
-    if (start === -1 || end === -1 || end <= start) return null;
-    const candidate = text.slice(start, end + 1);
-    return JSON.parse(candidate);
+// O reporter JSON do Cypress grava um objeto por spec no mesmo stdout,
+// intercalado com logs de outras ferramentas.
+function extractJsonObjects(text) {
+    const objects = [];
+    let depth = 0;
+    let start = -1;
+    let inString = false;
+    let escaped = false;
+
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+
+        if (inString) {
+            if (escaped) escaped = false;
+            else if (char === '\\') escaped = true;
+            else if (char === '"') inString = false;
+            continue;
+        }
+
+        if (char === '"' && depth > 0) {
+            inString = true;
+        } else if (char === '{') {
+            if (depth === 0) start = i;
+            depth++;
+        } else if (char === '}' && depth > 0) {
+            depth--;
+            if (depth === 0) {
+                try {
+                    objects.push(JSON.parse(text.slice(start, i + 1)));
+                } catch (error) {
+                    // trecho entre chaves que não é JSON (ex.: log); ignorar
+                }
+            }
+        }
+    }
+
+    return objects;
+}
+
+function mergeCypressReports(reports) {
+    const withStats = reports.filter(report => report && report.stats);
+    if (withStats.length === 0) return null;
+
+    return withStats.reduce((acc, report) => ({
+        stats: {
+            tests: acc.stats.tests + toNumber(report.stats.tests, 0),
+            failures: acc.stats.failures + toNumber(report.stats.failures, 0),
+            duration: acc.stats.duration + toNumber(report.stats.duration, 0)
+        },
+        tests: acc.tests.concat(Array.isArray(report.tests) ? report.tests : [])
+    }), { stats: { tests: 0, failures: 0, duration: 0 }, tests: [] });
 }
 
 function toNumber(value, fallback) {
@@ -64,7 +109,7 @@ function parseCypressResults(resultsPath) {
     try {
         data = JSON.parse(raw);
     } catch (error) {
-        data = extractJson(raw);
+        data = mergeCypressReports(extractJsonObjects(raw));
     }
 
     if (!data || !data.stats) return null;
