@@ -116,11 +116,11 @@ jobs:
           if git status --porcelain | grep "metrics/quality-metrics.json"; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git fetch origin metrics-data || true
+            git fetch origin metrics-data:refs/remotes/origin/metrics-data || true
             git checkout -B metrics-data
             git add metrics/quality-metrics.json
             git commit -m "chore: atualizar metricas [skip ci]"
-            git push origin metrics-data
+            git push --force-with-lease origin metrics-data
           else
             echo "No metrics changes"
           fi
