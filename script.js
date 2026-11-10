@@ -13,13 +13,51 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             const navHeight = document.querySelector('.navbar').offsetHeight;
             const targetPosition = targetElement.offsetTop - navHeight;
             
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             window.scrollTo({
                 top: targetPosition,
-                behavior: 'smooth'
+                behavior: prefersReducedMotion ? 'auto' : 'smooth'
             });
         }
     });
 });
+
+/* ========================================
+   MENU MOBILE
+   ======================================== */
+
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+function setNavMenuOpen(isOpen) {
+    if (!navToggle || !navMenu) return;
+    navMenu.classList.toggle('is-open', isOpen);
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+}
+
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+        setNavMenuOpen(!navMenu.classList.contains('is-open'));
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setNavMenuOpen(false));
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setNavMenuOpen(false);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.navbar')) setNavMenuOpen(false);
+    });
+
+    window.matchMedia('(min-width: 769px)').addEventListener('change', (e) => {
+        if (e.matches) setNavMenuOpen(false);
+    });
+}
 
 /* ========================================
    ANIMAÇÃO DE ENTRADA PARA ELEMENTOS
@@ -221,45 +259,11 @@ if (prefersDarkMode) {
 }
 
 /* ========================================
-   MONITORAR ATIVIDADE DO USUÁRIO
-   ======================================== */
-
-// Rastrear qual seção está sendo visualizada para analytics
-const sections = document.querySelectorAll('section');
-const currentSectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const sectionId = entry.target.id;
-            // Aqui poderia enviar dados de analytics
-            console.log('Seção visualizada:', sectionId);
-        }
-    });
-}, { threshold: 0.5 });
-
-sections.forEach(section => {
-    currentSectionObserver.observe(section);
-});
-
-/* ========================================
    INICIALIZAÇÃO
    ======================================== */
 
 onDomReady(() => {
-    console.log('Landing page carregada com sucesso');
     loadQualityMetrics();
-});
-
-/* ========================================
-   TRATAMENTO DE RESIZE
-   ======================================== */
-
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        console.log('Página redimensionada');
-        // Recalcular posições se necessário
-    }, 250);
 });
 
 /* ========================================

@@ -2,7 +2,7 @@
 
 Landing page profissional, moderna e responsiva feita com HTML, CSS e JavaScript puro.
 
-> Estado completo da entrega atual: **README-ESTADO-ATUAL.md**
+> Estado completo da entrega atual: **docs/README-ESTADO-ATUAL.md**
 
 ## 🎯 Objetivo
 

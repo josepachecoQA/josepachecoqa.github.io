@@ -14,13 +14,17 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
     it('Deve ter todos os links de navegacao', () => {
       cy.get('.nav-menu').within(() => {
         cy.contains('a', 'Sobre').should('have.attr', 'href', '#sobre');
-        cy.contains('a', 'Serviços').should('have.attr', 'href', '#servicos');
-        cy.contains('a', 'Diferenciais').should('have.attr', 'href', '#diferenciais');
-        cy.contains('a', 'Quality Engineering').should('have.attr', 'href', '#quality');
         cy.contains('a', 'Portfólio').should('have.attr', 'href', '#portfolio');
+        cy.contains('a', 'Serviços').should('have.attr', 'href', '#servicos');
         cy.contains('a', 'Dashboard').should('have.attr', 'href', '#dashboard');
         cy.contains('a', 'Conversar').should('have.attr', 'href', '#contato');
       });
+      cy.get('.nav-menu a').should('have.length', 5);
+    });
+
+    it('Deve esconder o botao de menu mobile no desktop', () => {
+      cy.get('.nav-toggle').should('not.be.visible');
+      cy.get('.nav-menu').should('be.visible');
     });
 
     it('Deve navegar para secao ao clicar no link', () => {
@@ -214,6 +218,42 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
       cy.get('.hero-title').should('be.visible');
     });
 
+    it('Deve abrir e fechar o menu mobile', () => {
+      cy.viewport('iphone-x');
+      cy.visit(`/${COVERAGE_QUERY}`);
+      cy.get('.nav-menu').should('not.be.visible');
+      cy.get('.nav-toggle')
+        .should('be.visible')
+        .and('have.attr', 'aria-expanded', 'false')
+        .click();
+      cy.get('.nav-toggle').should('have.attr', 'aria-expanded', 'true');
+      cy.get('.nav-menu').should('be.visible');
+
+      cy.get('.nav-menu').contains('a', 'Portfólio').click();
+      cy.get('.nav-toggle').should('have.attr', 'aria-expanded', 'false');
+      cy.get('.nav-menu').should('not.be.visible');
+      cy.get('#portfolio').should('be.visible');
+    });
+
+    it('Deve fechar o menu mobile com Esc', () => {
+      cy.viewport('iphone-x');
+      cy.visit(`/${COVERAGE_QUERY}`);
+      cy.get('.nav-toggle').click();
+      cy.get('.nav-menu').should('be.visible');
+      cy.get('body').type('{esc}');
+      cy.get('.nav-menu').should('not.be.visible');
+    });
+
+    [320, 375, 414].forEach((width) => {
+      it(`Nao deve ter rolagem horizontal em ${width}px`, () => {
+        cy.viewport(width, 800);
+        cy.visit(`/${COVERAGE_QUERY}`);
+        cy.document().then((doc) => {
+          expect(doc.documentElement.scrollWidth).to.be.at.most(width);
+        });
+      });
+    });
+
     it('Deve ser responsivo em tablet', () => {
       cy.viewport('ipad-2');
       cy.visit(`/${COVERAGE_QUERY}`);
@@ -267,6 +307,12 @@ describe('Landing Page - José Pacheco QA Engineer', () => {
       cy.get('#contato').should('be.visible');
       cy.get('.contato-links .contato-link').should('have.length.at.least', 3);
       cy.get('.contato-email').should('contain', '@');
+    });
+
+    it('Deve abrir o WhatsApp pelo link de contato', () => {
+      cy.contains('.contato-link', 'WhatsApp')
+        .should('have.attr', 'href')
+        .and('match', /^https:\/\/wa\.me\/\d+$/);
     });
 
     it('Deve exibir footer', () => {

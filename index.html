@@ -13,11 +13,15 @@
     <meta property="og:title" content="José Pacheco - QA Engineer Pleno">
     <meta property="og:description" content="QA focado em qualidade orientada ao negócio, prevenção de riscos e excelência em testes">
     <meta property="og:url" content="https://josepachecoqa.github.io/">
-    <meta property="og:image" content="https://josepachecoqa.github.io/assets/images/profile.jpg">
+    <meta property="og:image" content="https://josepachecoqa.github.io/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pt_BR">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="José Pacheco - QA Engineer Pleno">
     <meta name="twitter:description" content="QA focado em qualidade orientada ao negócio, prevenção de riscos e excelência em testes">
-    <meta name="twitter:image" content="https://josepachecoqa.github.io/assets/images/profile.jpg">
+    <meta name="twitter:image" content="https://josepachecoqa.github.io/assets/images/og-image.jpg">
+    <link rel="preload" as="image" href="assets/images/profile.webp" type="image/webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,7 +33,7 @@
             "name": "Jose Pacheco",
             "jobTitle": "QA Engineer Pleno",
             "url": "https://josepachecoqa.github.io/",
-            "image": "https://josepachecoqa.github.io/assets/images/profile.jpg",
+            "image": "https://josepachecoqa.github.io/assets/images/profile-640.jpg",
             "sameAs": [
                 "https://www.linkedin.com/in/josepachecoqa/",
                 "https://github.com/josepachecoQA"
@@ -46,12 +50,15 @@
             <div class="navbar-logo">
                 <span class="logo-text">José Pacheco</span>
             </div>
-            <ul class="nav-menu">
+            <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
                 <li><a href="#sobre" class="nav-link">Sobre</a></li>
-                <li><a href="#servicos" class="nav-link">Serviços</a></li>
-                <li><a href="#diferenciais" class="nav-link">Diferenciais</a></li>
-                <li><a href="#quality" class="nav-link">Quality Engineering</a></li>
                 <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+                <li><a href="#servicos" class="nav-link">Serviços</a></li>
                 <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
                 <li><a href="#contato" class="nav-link cta-link">Conversar</a></li>
             </ul>
@@ -68,6 +75,7 @@
          ======================================== -->
     <section id="hero" class="hero">
         <div class="hero-content">
+            <p class="hero-eyebrow">José Pacheco · QA Engineer Pleno</p>
             <h1 class="hero-title">QA focado em qualidade orientada ao negócio</h1>
             <p class="hero-subtitle">Garanto previsibilidade nos seus produtos, elimino retrabalho e apoio decisões estratégicas através de testes inteligentes e prevenção de riscos</p>
             <div class="hero-cta">
@@ -77,7 +85,10 @@
         </div>
         <div class="hero-visual">
             <div class="profile-image-container">
-                <img src="assets/images/profile.jpg" alt="José Pacheco - QA Engineer" class="profile-image">
+                <picture>
+                    <source srcset="assets/images/profile.webp" type="image/webp">
+                    <img src="assets/images/profile-640.jpg" alt="José Pacheco - QA Engineer" class="profile-image" width="640" height="640" fetchpriority="high">
+                </picture>
                 <div class="profile-image-border"></div>
             </div>
         </div>
@@ -111,10 +122,132 @@
                         <span class="stat-label">Projetos</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Linguagens de Automação</span>
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Setores atendidos</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         PORTFÓLIO
+         ======================================== -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Portfólio</h2>
+            <p class="portfolio-intro">Projetos onde apliquei qualidade orientada ao negócio e automação estratégica:</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-card">
+                    <h3>QA em Meios de Pagamento - Gestor Bucks</h3>
+                    <p><strong>Contexto:</strong> Desenvolvimento do Gestor Bucks, plataforma de pagamentos com integrações de PIX, wallets e sistemas de tarifa críticos para fintech.</p>
+                    <p><strong>Desafio:</strong> Validação end-to-end de integrações de meios de pagamento em ambiente de mudanças frequentes, evitando falhas em produção e retrabalho.</p>
+                    <p><strong>Solução:</strong> Atuei como QA desde a concepção, realizando validações completas de wallets, limites, tarifas, PIX In/Out e cenários críticos. Foco em prevenção resultou em redução de 70% nos chamados de suporte.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Fintech</span>
+                        <span class="tech-tag">Wallets & PIX</span>
+                        <span class="tech-tag">Testes End-to-End</span>
+                    </div>
+                    <a href="https://www.buckssolutions.com/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer Bucks →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>QA em Arrecadação - Integração COBAN & Kronos</h3>
+                    <p><strong>Contexto:</strong> Projeto de arrecadação de contas com integração ao Banco do Brasil via COBAN e sistema legado Gestor Kronos em ambiente financeiro crítico.</p>
+                    <p><strong>Desafio:</strong> Validação end-to-end de fluxos transacionais, conciliação bancária complexa e comunicação entre múltiplos sistemas legados.</p>
+                    <p><strong>Solução:</strong> Validações manuais por POS, automação com Selenium e Python, scripts para massa de testes. Resultado: 100% cobertura de cenários críticos, facilitador entre times Dev/Suporte.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Selenium + Python</span>
+                        <span class="tech-tag">Testes Manuais</span>
+                        <span class="tech-tag">Integração Bancária</span>
+                    </div>
+                    <a href="https://www.servicenet.com.br/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer ServiceNet →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>QA em Gestão Médica - MedicalSys</h3>
+                    <p><strong>Contexto:</strong> Software completo de gestão para clínicas médicas com múltiplas integrações: emissão de documentos, agendamentos, totens de autoatendimento.</p>
+                    <p><strong>Desafio:</strong> Validações complexas entre fluxos, regras de negócio críticas e experiência do usuário em sistema legado Python/Django.</p>
+                    <p><strong>Solução:</strong> Executei testes end-to-end com Cypress, garantindo estabilidade, prevenindo falhas e apoiando entregas mais previsíveis.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Cypress</span>
+                        <span class="tech-tag">Django/Python</span>
+                        <span class="tech-tag">Healthcare</span>
+                    </div>
+                    <a href="https://www.medicalsys.com.br/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer MedicalSys →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>QA em Apostas Esportivas - Gestor Atenas</h3>
+                    <p><strong>Contexto:</strong> Sistema central modular para múltiplas plataformas bet com validação de fluxos críticos, formulários dinâmicos e conformidade regulatória global.</p>
+                    <p><strong>Desafio:</strong> Formulários adaptáveis por país, regras regulatórias regionais, fluxos transacionais globais em alta concorrência e validações de KYC/Big Data.</p>
+                    <p><strong>Solução:</strong> Validações de integridade transacional, KYC automatizado (verificação de identidade, menores, elegibilidade de benefícios), conformidade regulatória em múltiplas regiões.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">KYC & Big Data</span>
+                        <span class="tech-tag">Conformidade Regulatória</span>
+                        <span class="tech-tag">Apostas Esportivas</span>
+                    </div>
+                    <a href="https://betsul.bet.br/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer Betsul →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>Desafio Técnico - Automação E2E e API</h3>
+                    <p><strong>Contexto:</strong> Desafio técnico de QA cobrindo o fluxo de busca e carrinho da Amazon Brasil e uma API REST pública.</p>
+                    <p><strong>Desafio:</strong> Entregar automação robusta em diferentes camadas, com evidências de execução e pipeline pronto para CI.</p>
+                    <p><strong>Solução:</strong> Suítes E2E em Playwright e Cypress com Page Object Model, testes de API em Python + Pytest com cenários positivos, negativos e validação de contrato, e pipeline no GitHub Actions executando tudo em paralelo com relatórios.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Playwright</span>
+                        <span class="tech-tag">Cypress</span>
+                        <span class="tech-tag">Pytest</span>
+                        <span class="tech-tag">GitHub Actions</span>
+                    </div>
+                    <a href="https://github.com/josepachecoQA/qa-automation-challenge" target="_blank" rel="noopener noreferrer" class="portfolio-link">Ver no GitHub →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>Portfólio Técnico de QA</h3>
+                    <p><strong>Contexto:</strong> Repositório com exemplos práticos da minha atuação em testes de sistemas críticos, incluindo integrações financeiras (PIX/PSP).</p>
+                    <p><strong>Desafio:</strong> Mostrar de forma organizada o trabalho de QA que normalmente fica em ferramentas internas das empresas.</p>
+                    <p><strong>Solução:</strong> Coleções Postman para testes de API, automação com Python + Selenium, cenários BDD em Gherkin e documentação de testes manuais e estratégias de regressão.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">Postman</span>
+                        <span class="tech-tag">Python + Selenium</span>
+                        <span class="tech-tag">BDD</span>
+                    </div>
+                    <a href="https://github.com/josepachecoQA/qa-portfolio-pacheco" target="_blank" rel="noopener noreferrer" class="portfolio-link">Ver no GitHub →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>QA Mini Lab - Projeto Educacional</h3>
+                    <p><strong>Contexto:</strong> Ambiente prático para QAs testarem fluxos reais e evoluírem em testes manuais, automação e reporte de bugs.</p>
+                    <p><strong>Desafio:</strong> Criar uma experiência didática com formulários, autenticação simulada, catálogo filtrável e missões de QA.</p>
+                    <p><strong>Solução:</strong> Desenvolvi um laboratório interativo com cenários testáveis, modo desafio com bugs pedagógicos e guia de mentoria.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">QA Lab</span>
+                        <span class="tech-tag">Cypress</span>
+                        <span class="tech-tag">Aprendizado Prático</span>
+                    </div>
+                    <a href="qa-lab.html" class="portfolio-link">Acessar QA Lab →</a>
+                </div>
+
+                <div class="portfolio-card">
+                    <h3>Dashboard de Métricas de Qualidade</h3>
+                    <p><strong>Contexto:</strong> Time precisava de visibilidade em métricas de qualidade para tomadas de decisão.</p>
+                    <p><strong>Desafio:</strong> Dados dispersos, relatórios manuais, falta de rastreabilidade.</p>
+                    <p><strong>Solução:</strong> Criei dashboard integrando dados de execução de testes, bugs encontrados e ROI de automação.</p>
+                    <div class="portfolio-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Visualização de Dados</span>
+                        <span class="tech-tag">Analytics</span>
+                    </div>
+                    <a href="#dashboard" class="portfolio-link">Ver dashboard ao vivo →</a>
+                </div>
+            </div>
+
+            <div class="portfolio-cta">
+                <p>Mais projetos e contribuições no meu GitHub</p>
+                <a href="https://github.com/josepachecoQA" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Acessar GitHub</a>
             </div>
         </div>
     </section>
@@ -171,7 +304,7 @@
                         </svg>
                     </div>
                     <h3>Qualidade Integrada</h3>
-                    <p>QA desde o início do ciclo de desenvolvimento. Participação em planejamento, refinemento e análise de requisitos para prevenir problemas.</p>
+                    <p>QA desde o início do ciclo de desenvolvimento. Participação em planejamento, refinamento e análise de requisitos para prevenir problemas.</p>
                 </div>
             </div>
         </div>
@@ -191,12 +324,12 @@
 
                 <div class="diferencial-item">
                     <h3>🗣️ Comunicação Clara</h3>
-                    <p>Fluo entre Produto, Desenvolvimento e Negócio. Traduzo complexidades técnicas em insights acionáveis para stakeholders.</p>
+                    <p>Transito com fluidez entre Produto, Desenvolvimento e Negócio. Traduzo complexidades técnicas em insights acionáveis para stakeholders.</p>
                 </div>
 
                 <div class="diferencial-item">
                     <h3>🧠 Pensamento Crítico</h3>
-                    <p>Questiono requisitos, identico brechas e antecipo problemas. Qualidade não é reativa, é preventiva.</p>
+                    <p>Questiono requisitos, identifico brechas e antecipo problemas. Qualidade não é reativa, é preventiva.</p>
                 </div>
 
                 <div class="diferencial-item">
@@ -276,127 +409,6 @@
                     <h3>Mindset de Engenharia</h3>
                     <p>QA como prevenção de problemas, redução de retrabalho e aumento da confiabilidade do sistema.</p>
                 </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         PORTFÓLIO
-         ======================================== -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2 class="section-title">Portfólio</h2>
-            <p class="portfolio-intro">Projetos onde apliquei qualidade orientada ao negócio e automação estratégica:</p>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <h3>QA em Meios de Pagamento - Gestor Bucks</h3>
-                    <p><strong>Contexto:</strong> Desenvolvimento do Gestor Bucks, plataforma de pagamentos com integrações de PIX, wallets e sistemas de tarifa críticos para fintech.</p>
-                    <p><strong>Desafio:</strong> Validação end-to-end de integrações de meios de pagamento em ambiente de mudanças frequentes, evitando falhas em produção e retrabalho.</p>
-                    <p><strong>Solução:</strong> Atuei como QA desde a concepção, realizando validações completas de wallets, limites, tarifas, PIX In/Out e cenários críticos. Foco em prevenção resultou em redução de 70% nos chamados de suporte.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Fintech</span>
-                        <span class="tech-tag">Wallets & PIX</span>
-                        <span class="tech-tag">Testes End-to-End</span>
-                    </div>
-                    <a href="https://www.buckssolutions.com/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer Bucks →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>QA em Arrecadação - Integração COBAN & Kronos</h3>
-                    <p><strong>Contexto:</strong> Projeto de arrecadação de contas com integração ao Banco do Brasil via COBAN e sistema legado Gestor Kronos em ambiente financeiro crítico.</p>
-                    <p><strong>Desafio:</strong> Validação end-to-end de fluxos transacionais, conciliação bancária complexa e comunicação entre múltiplos sistemas legados.</p>
-                    <p><strong>Solução:</strong> Validações manuais por POS, automação com Selenium e Python, scripts para massa de testes. Resultado: 100% cobertura de cenários críticos, facilitador entre times Dev/Suporte.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Selenium + Python</span>
-                        <span class="tech-tag">Testes Manuais</span>
-                        <span class="tech-tag">Integração Bancária</span>
-                    </div>
-                    <a href="https://www.servicenet.com.br/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer ServiceNet →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>QA em Gestão Médica - MedicalSys</h3>
-                    <p><strong>Contexto:</strong> Software completo de gestão para clínicas médicas com múltiplas integrações: emissão de documentos, agendamentos, totens de autoatendimento.</p>
-                    <p><strong>Desafio:</strong> Validações complexas entre fluxos, regras de negócio críticas e experiência do usuário em sistema legado Python/Django.</p>
-                    <p><strong>Solução:</strong> Executei testes end-to-end com Cypress, garantindo estabilidade, prevenindo falhas e apoiando entregas mais previsíveis.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Cypress</span>
-                        <span class="tech-tag">Django/Python</span>
-                        <span class="tech-tag">Healthcare</span>
-                    </div>
-                    <a href="https://www.medicalsys.com.br/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer MedicalSys →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>QA em Apostas Esportivas - Gestor Atenas</h3>
-                    <p><strong>Contexto:</strong> Sistema central modular para múltiplas plataformas bet com validação de fluxos críticos, formulários dinâmicos e conformidade regulatória global.</p>
-                    <p><strong>Desafio:</strong> Formulários adaptáveis por país, regras regulatórias regionais, fluxos transacionais globais em alta concorrência e validações de KYC/Big Data.</p>
-                    <p><strong>Solução:</strong> Validações de integridade transacional, KYC automatizado (verificação de identidade, menores, elegibilidade de benefícios), conformidade regulatória em múltiplas regiões.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">KYC & Big Data</span>
-                        <span class="tech-tag">Conformidade Regulatória</span>
-                        <span class="tech-tag">Apostas Esportivas</span>
-                    </div>
-                    <a href="https://betsul.bet.br/" target="_blank" rel="noopener noreferrer" class="portfolio-link">Conhecer Betsul →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>Testes de API com Análise de Contrato</h3>
-                    <p><strong>Contexto:</strong> Integração entre microsserviços em ambiente de fintech.</p>
-                    <p><strong>Desafio:</strong> Falhas em produção por mudanças não sincronizadas entre APIs.</p>
-                    <p><strong>Solução:</strong> Criei suite de testes de contrato com Playwright + validação de schemas JSON. Preveni 5+ regressões críticas.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Playwright</span>
-                        <span class="tech-tag">Node.js</span>
-                        <span class="tech-tag">APIs</span>
-                    </div>
-                    <a href="https://github.com/josepachecoQA" target="_blank" rel="noopener noreferrer" class="portfolio-link">Ver no GitHub →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>Estratégia de Testes Exploratórios</h3>
-                    <p><strong>Contexto:</strong> Produto SaaS em fase de expansão, sem documentação clara de requisitos.</p>
-                    <p><strong>Desafio:</strong> Bugs críticos chegando em produção, falta de cobertura em casos edge.</p>
-                    <p><strong>Solução:</strong> Implementei matriz de risco e roteiros de teste exploratório. Aumentei detecção de bugs em 60% pré-produção.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">Testes Exploratórios</span>
-                        <span class="tech-tag">Análise de Risco</span>
-                        <span class="tech-tag">SaaS</span>
-                    </div>
-                    <a href="https://github.com/josepachecoQA" target="_blank" rel="noopener noreferrer" class="portfolio-link">Ver no GitHub →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>QA Mini Lab - Projeto Educacional</h3>
-                    <p><strong>Contexto:</strong> Ambiente prático para QAs testarem fluxos reais e evoluírem em testes manuais, automação e reporte de bugs.</p>
-                    <p><strong>Desafio:</strong> Criar uma experiência didática com formulários, autenticação simulada, catálogo filtrável e missões de QA.</p>
-                    <p><strong>Solução:</strong> Desenvolvi um laboratório interativo com cenários testáveis, modo desafio com bugs pedagógicos e guia de mentoria.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">QA Lab</span>
-                        <span class="tech-tag">Cypress</span>
-                        <span class="tech-tag">Aprendizado Prático</span>
-                    </div>
-                    <a href="qa-lab.html" class="portfolio-link">Acessar QA Lab →</a>
-                </div>
-
-                <div class="portfolio-card">
-                    <h3>Dashboard de Métricas de Qualidade</h3>
-                    <p><strong>Contexto:</strong> Time precisava de visibilidade em métricas de qualidade para tomadas de decisão.</p>
-                    <p><strong>Desafio:</strong> Dados dispersos, relatórios manuais, falta de rastreabilidade.</p>
-                    <p><strong>Solução:</strong> Criei dashboard integrando dados de execução de testes, bugs encontrados e ROI de automação.</p>
-                    <div class="portfolio-tech">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Visualização de Dados</span>
-                        <span class="tech-tag">Analytics</span>
-                    </div>
-                    <a href="https://github.com/josepachecoQA" target="_blank" rel="noopener noreferrer" class="portfolio-link">Ver no GitHub →</a>
-                </div>
-            </div>
-
-            <div class="portfolio-cta">
-                <p>Mais projetos e contribuições no meu GitHub</p>
-                <a href="https://github.com/josepachecoQA" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Acessar GitHub</a>
             </div>
         </div>
     </section>
@@ -544,7 +556,7 @@
                     <span class="contato-icon">in</span>
                     <span class="contato-text">LinkedIn</span>
                 </a>
-                <a href="tel:+5581991737145" class="contato-link">
+                <a href="https://wa.me/5581991737145" target="_blank" rel="noopener noreferrer" class="contato-link">
                     <span class="contato-icon">📱</span>
                     <span class="contato-text">WhatsApp</span>
                 </a>

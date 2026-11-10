@@ -1,0 +1,12 @@
+# GitHub Pages (Jekyll): arquivos de desenvolvimento que não devem ser publicados no site.
+exclude:
+  - docs/
+  - cypress/
+  - scripts/
+  - tests/
+  - reports/
+  - node_modules/
+  - README.md
+  - package.json
+  - package-lock.json
+  - cypress.config.js
