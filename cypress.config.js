@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { defineConfig } = require('cypress');
 const codeCoverageTask = require('@cypress/code-coverage/task');
 
@@ -12,6 +13,12 @@ module.exports = defineConfig({
     },
     setupNodeEvents(on, config) {
       codeCoverageTask(on, config);
+      on('task', {
+        clearDownloads() {
+          fs.rmSync(config.downloadsFolder, { recursive: true, force: true });
+          return null;
+        },
+      });
       return config;
     },
   },

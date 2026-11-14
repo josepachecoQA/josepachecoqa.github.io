@@ -1,0 +1,481 @@
+.briefing-hero {
+    min-height: 70vh;
+}
+
+.briefing-tooth {
+    opacity: 0.45;
+}
+
+.briefing-hints {
+    list-style: none;
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-text-secondary);
+}
+
+.briefing-hints li {
+    position: relative;
+    padding-left: var(--spacing-md);
+    margin-bottom: 6px;
+}
+
+.briefing-hints li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+}
+
+.req {
+    color: #ff7b72;
+    font-weight: 700;
+}
+
+/* ========================================
+   PROGRESSO
+   ======================================== */
+.briefing-progress {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+.briefing-progress-bar {
+    width: 140px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--color-border);
+    overflow: hidden;
+}
+
+.briefing-progress-bar div {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: width var(--transition-normal);
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+.briefing-form {
+    padding: var(--spacing-2xl) 0;
+}
+
+.briefing-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.briefing-steps {
+    position: sticky;
+    top: 100px;
+}
+
+.briefing-steps ol {
+    list-style: none;
+    counter-reset: step;
+    border-left: 1px solid var(--color-border);
+}
+
+.briefing-steps li {
+    counter-increment: step;
+}
+
+.briefing-steps a {
+    display: block;
+    padding: 6px var(--spacing-sm);
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.briefing-steps a::before {
+    content: counter(step) '. ';
+    color: var(--color-border);
+}
+
+.briefing-steps a:hover,
+.briefing-steps a.is-active {
+    color: var(--color-primary);
+    border-left-color: var(--color-primary);
+}
+
+.briefing-steps a.is-done::after {
+    content: ' ✓';
+    color: #3fb950;
+}
+
+/* ========================================
+   ETAPAS
+   ======================================== */
+.step {
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-dark-light);
+    scroll-margin-top: 90px;
+}
+
+.step h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text);
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(88, 166, 255, 0.12);
+    border: 1px solid rgba(88, 166, 255, 0.35);
+    color: var(--color-accent);
+    font-size: 0.95rem;
+}
+
+.step-intro {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ========================================
+   CAMPOS
+   ======================================== */
+.field,
+.photo-field {
+    margin-bottom: var(--spacing-md);
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.field-row.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.field label,
+.field .label,
+.photo-field > label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.briefing-form input[type="text"],
+.briefing-form input[type="number"],
+.briefing-form input[type="email"],
+.briefing-form input[type="tel"],
+.briefing-form input[type="url"],
+.briefing-form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.briefing-form textarea {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.briefing-form input:focus,
+.briefing-form textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+.briefing-form input::placeholder,
+.briefing-form textarea::placeholder {
+    color: #6e7681;
+}
+
+.briefing-form .is-invalid input,
+.briefing-form .is-invalid textarea {
+    border-color: #ff7b72;
+}
+
+.briefing-form input[type="color"] {
+    width: 100%;
+    height: 44px;
+    padding: 4px;
+    background: var(--color-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.field-help {
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.step > .field-help {
+    margin: -8px 0 var(--spacing-md);
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.choices.columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.choices label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 8px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-dark);
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.choices label:hover {
+    border-color: var(--color-primary);
+}
+
+.choices label:has(input:checked) {
+    border-color: var(--color-primary);
+    background: rgba(88, 166, 255, 0.08);
+    color: var(--color-text);
+}
+
+.choices input {
+    accent-color: var(--color-primary);
+}
+
+/* ========================================
+   FOTOS
+   ======================================== */
+.photo-tips {
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.photo-tips summary {
+    cursor: pointer;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.photo-tips ul {
+    margin: var(--spacing-sm) 0 0 var(--spacing-md);
+    color: var(--color-text-secondary);
+}
+
+.photo-field {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-dark);
+}
+
+.photo-field input[type="file"] {
+    width: 100%;
+    margin-top: var(--spacing-xs);
+    color: var(--color-text-secondary);
+}
+
+.photo-field input[type="file"]::file-selector-button {
+    margin-right: var(--spacing-sm);
+    padding: 8px 14px;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--color-primary);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.photo-field .field {
+    margin: var(--spacing-sm) 0 0;
+}
+
+.photo-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 8px;
+    margin-top: var(--spacing-sm);
+}
+
+.photo-preview:empty {
+    display: none;
+}
+
+.photo-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.photo-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-thumb button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(1, 4, 9, 0.8);
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.photo-total {
+    margin: 0;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+/* ========================================
+   FINALIZAÇÃO
+   ======================================== */
+.finish-box {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    border: 1px solid rgba(88, 166, 255, 0.35);
+    border-radius: var(--radius-lg);
+    background: rgba(88, 166, 255, 0.05);
+}
+
+.finish-box h3 {
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm);
+}
+
+.finish-box ol {
+    margin: 0 0 var(--spacing-lg) var(--spacing-md);
+    color: var(--color-text-secondary);
+}
+
+.finish-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.form-feedback {
+    min-height: 1.6em;
+    margin: var(--spacing-md) 0 0;
+    color: #3fb950;
+    font-weight: 600;
+}
+
+.form-feedback.is-error {
+    color: #ff7b72;
+}
+
+.link-button {
+    margin-top: var(--spacing-sm);
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--color-text-secondary);
+    font: inherit;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link-button:hover {
+    color: #ff7b72;
+}
+
+/* ========================================
+   RESPONSIVO
+   ======================================== */
+@media (max-width: 900px) {
+    .briefing-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .briefing-steps {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .briefing-form {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .briefing-form .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .step {
+        padding: var(--spacing-md);
+    }
+
+    .field-row,
+    .field-row.three {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .briefing-page .navbar-container {
+        padding: var(--spacing-sm);
+        gap: var(--spacing-sm);
+    }
+
+    .briefing-progress {
+        font-size: 0.8rem;
+        gap: 8px;
+    }
+
+    .briefing-progress-bar {
+        width: 60px;
+    }
+
+    .briefing-page .navbar-logo {
+        font-size: 1rem;
+    }
+
+    .finish-actions .btn {
+        width: 100%;
+    }
+}
