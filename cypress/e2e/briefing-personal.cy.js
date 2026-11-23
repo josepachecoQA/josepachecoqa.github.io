@@ -40,10 +40,24 @@ describe('Briefing - Landing page para personal trainer', () => {
 
     cy.get('#finishFeedback')
       .should('have.class', 'is-error')
-      .and('contain', 'Número do CREF')
       .and('contain', 'WhatsApp de contato')
-      .and('contain', 'Foto principal');
+      .and('contain', 'Foto principal')
+      .and('not.contain', 'CREF');
     cy.readFile(BRIEFING_FILE).should('not.exist');
+  });
+
+  it('deve gerar o arquivo sem CREF, que é opcional', () => {
+    cy.get('#nomeCompleto').type('Carlos Mendes Lima', TYPE);
+    cy.get('#cidade').type('Recife', TYPE);
+    cy.get('#whatsapp').type('(81) 90000-0000', TYPE);
+    cy.get('input[name="autorizacao"]').check();
+    cy.get('#fotoPrincipal').selectFile('assets/images/profile-640.jpg');
+    cy.get('[data-photo="foto-principal"] .photo-thumb').should('have.length', 1);
+    cy.get('.briefing-steps a[href="#s-identificacao"]').should('have.class', 'is-done');
+
+    cy.get('#downloadJson').click();
+    cy.get('#finishFeedback').should('not.have.class', 'is-error').and('contain', 'Arquivo baixado');
+    cy.readFile(BRIEFING_FILE).its('dados').should('include', { crefNumero: '', crefUf: '' });
   });
 
   it('deve gerar o arquivo com tipo, respostas fitness e fotos', () => {
