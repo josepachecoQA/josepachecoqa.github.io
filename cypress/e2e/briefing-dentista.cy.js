@@ -212,3 +212,81 @@ describe('Briefing - Landing page para dentista', () => {
     cy.get('#finishFeedback').should('contain', 'Respostas copiadas');
   });
 });
+
+describe('Briefing - envio para a API', () => {
+  const API = 'http://localhost:3999';
+
+  const visitWithApi = () => {
+    cy.visit(`/briefing-dentista.html?api=${encodeURIComponent(API)}`, {
+      onBeforeLoad(win) {
+        win.localStorage.clear();
+      },
+    });
+  };
+
+  it('deve avisar que o envio online está indisponível quando a API não está configurada', () => {
+    visitBriefing();
+    fillRequired();
+    cy.get('#submitBriefing').click();
+    cy.get('#finishFeedback')
+      .should('have.class', 'is-error')
+      .and('contain', 'Baixar cópia do arquivo');
+  });
+
+  it('deve enviar respostas e fotos para a API e mostrar o protocolo', () => {
+    cy.intercept('POST', `${API}/api/briefings`, (req) => {
+      req.reply({ delay: 400, statusCode: 201, body: { id: 'a1b2c3d4-0000-4000-8000-000000000000', totalFotos: 1 } });
+    }).as('submit');
+
+    visitWithApi();
+    fillRequired();
+    cy.get('input[name="servicos"][value="Implantes"]').check();
+    cy.get('#submitBriefing').click();
+    cy.get('#submitBriefing').should('be.disabled').and('have.text', 'Enviando...');
+
+    cy.wait('@submit').its('request.body').then((body) => {
+      expect(body.dados).to.include({ nomeCompleto: 'Ana Souza Lima', croUf: 'PE', cidade: 'Recife' });
+      expect(body.dados.servicos).to.deep.eq(['Implantes']);
+      expect(body.dados).not.to.have.property('website');
+      expect(body.website).to.eq('');
+      expect(body.fotos).to.have.length(1);
+      expect(body.fotos[0].categoria).to.eq('foto-principal');
+      expect(body.fotos[0].dataUrl).to.match(/^data:image\/jpeg;base64,/);
+    });
+
+    cy.get('#finishFeedback')
+      .should('not.have.class', 'is-error')
+      .and('contain', 'Protocolo A1B2C3D4');
+    cy.get('#submitBriefing').should('be.disabled').and('have.text', 'Briefing enviado');
+    cy.window().then((win) => {
+      expect(win.localStorage.getItem('briefingDentista:v1')).to.be.null;
+    });
+  });
+
+  it('deve mostrar o erro da API e permitir tentar de novo', () => {
+    cy.intercept('POST', `${API}/api/briefings`, {
+      statusCode: 422,
+      body: { erro: 'Foto 1: o conteúdo não é uma imagem JPG válida.' },
+    }).as('submit');
+
+    visitWithApi();
+    fillRequired();
+    cy.get('#submitBriefing').click();
+    cy.wait('@submit');
+
+    cy.get('#finishFeedback').should('have.class', 'is-error').and('contain', 'não é uma imagem JPG válida');
+    cy.get('#submitBriefing').should('not.be.disabled').and('have.text', 'Enviar briefing');
+  });
+
+  it('deve orientar o download quando o servidor está fora do ar', () => {
+    cy.intercept('POST', `${API}/api/briefings`, { forceNetworkError: true }).as('submit');
+
+    visitWithApi();
+    fillRequired();
+    cy.get('#submitBriefing').click();
+    cy.wait('@submit');
+
+    cy.get('#finishFeedback').should('contain', 'Sem conexão com o servidor');
+    cy.get('#submitBriefing').should('not.be.disabled');
+  });
+});

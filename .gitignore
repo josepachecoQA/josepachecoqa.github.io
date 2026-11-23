@@ -31,3 +31,6 @@ Thumbs.db
 # Misc
 .prettierrc
 .eslintrc.json
+
+# Briefings recebidos (dados pessoais e fotos originais)
+briefing-*.json

@@ -6,6 +6,7 @@
     <meta name="description" content="Briefing para criação de landing page de consultório odontológico.">
     <meta name="robots" content="noindex, nofollow">
     <meta name="theme-color" content="#0d1117">
+    <meta name="briefing-api" content="">
     <title>Briefing | Landing page para dentista</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +31,7 @@
         <div class="hero-content">
             <p class="hero-eyebrow">Sua landing page · Área da saúde</p>
             <h1 class="hero-title">Vamos montar a sua página profissional</h1>
-            <p class="hero-subtitle">Responda com calma, do seu jeito. Quanto mais detalhes, mais a página vai ter a sua cara e a do seu consultório. Leva uns 20 minutos e nada é enviado sozinho: no final você baixa um arquivo e me manda.</p>
+            <p class="hero-subtitle">Responda com calma, do seu jeito. Quanto mais detalhes, mais a página vai ter a sua cara e a do seu consultório. Leva uns 20 minutos e nada é enviado sozinho: só quando você clicar em enviar, no final.</p>
             <ul class="briefing-hints">
                 <li>Campos com <span class="req">*</span> são obrigatórios. O resto é opcional, mas ajuda muito.</li>
                 <li>Suas respostas de texto ficam salvas neste navegador, então dá pra parar e continuar depois.</li>
@@ -89,7 +90,7 @@
                         </div>
                         <div class="field" data-q="UF do CRO">
                             <label for="croUf">UF <span class="req">*</span></label>
-                            <input id="croUf" name="croUf" type="text" required maxlength="2" placeholder="PE">
+                            <input id="croUf" name="croUf" type="text" required maxlength="2" placeholder="PE" data-uppercase>
                         </div>
                     </div>
                     <p class="field-help">O CRO precisa aparecer na página: é exigência do Código de Ética Odontológica para qualquer divulgação.</p>
@@ -494,7 +495,7 @@
                         <div class="photo-preview"></div>
                     </div>
                     <div class="photo-field" data-photo="logo" data-label="Logo">
-                        <label for="fotoLogo">Logo (PNG ou SVG, se tiver)</label>
+                        <label for="fotoLogo">Logo (PNG, JPG ou SVG, se tiver)</label>
                         <input id="fotoLogo" type="file" accept="image/*" multiple>
                         <div class="photo-preview"></div>
                     </div>
@@ -530,14 +531,17 @@
                         </div>
                     </div>
 
+                    <div class="briefing-honeypot" aria-hidden="true">
+                        <label for="website">Não preencha este campo</label>
+                        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+                    </div>
+
                     <div class="finish-box">
-                        <h3>Como me enviar</h3>
-                        <ol>
-                            <li>Clique em <strong>Baixar arquivo do briefing</strong>. Ele junta as respostas e as fotos num arquivo só.</li>
-                            <li>Mande esse arquivo para o José pelo WhatsApp (como documento) ou por e-mail.</li>
-                        </ol>
+                        <h3>Enviar para o José</h3>
+                        <p>Clique em <strong>Enviar briefing</strong>. As respostas e as fotos chegam direto para ele, de forma segura. Se der algum problema no envio, baixe o arquivo e mande pelo WhatsApp.</p>
                         <div class="finish-actions">
-                            <button type="button" id="downloadJson" class="btn btn-primary">Baixar arquivo do briefing</button>
+                            <button type="button" id="submitBriefing" class="btn btn-primary">Enviar briefing</button>
+                            <button type="button" id="downloadJson" class="btn btn-secondary">Baixar cópia do arquivo</button>
                             <button type="button" id="copyText" class="btn btn-secondary">Copiar respostas em texto</button>
                             <a id="sendWhatsapp" class="btn btn-secondary" href="https://wa.me/5581991737145" target="_blank" rel="noopener noreferrer">Avisar o José no WhatsApp</a>
                         </div>
@@ -551,7 +555,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>Briefing criado por José Pacheco · Suas respostas ficam só no seu navegador até você enviar o arquivo.</p>
+            <p>Briefing criado por José Pacheco · Suas respostas ficam só no seu navegador até você clicar em enviar.</p>
         </div>
     </footer>
 

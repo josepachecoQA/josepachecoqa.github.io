@@ -2,7 +2,8 @@
     min-height: 70vh;
 }
 
-.briefing-tooth {
+.briefing-tooth,
+.briefing-dumbbell {
     opacity: 0.45;
 }
 
@@ -387,9 +388,12 @@
     margin-bottom: var(--spacing-sm);
 }
 
-.finish-box ol {
-    margin: 0 0 var(--spacing-lg) var(--spacing-md);
-    color: var(--color-text-secondary);
+.briefing-honeypot {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .finish-actions {

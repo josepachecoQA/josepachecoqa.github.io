@@ -1,4 +1,3 @@
-const BRIEFING_STORAGE_KEY = 'briefingDentista:v1';
 const WHATSAPP_NUMBER = '5581991737145';
 const MAX_PHOTOS = 40;
 const PHOTO_MAX_SIDE = 1920;
@@ -6,7 +5,19 @@ const LOGO_MAX_SIDE = 1200;
 const PHOTO_QUALITY = 0.85;
 
 const form = document.getElementById('briefingForm');
+const BRIEFING_TYPE = form.dataset.tipo || 'dentista';
+const BRIEFING_STORAGE_KEY = form.dataset.storageKey || 'briefingDentista:v1';
+const BRIEFING_TITLE = form.dataset.titulo || 'Landing page odontológica';
 const photos = {};
+const API_BASE = resolveApiBase();
+
+function resolveApiBase() {
+  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+  const override = new URLSearchParams(window.location.search).get('api');
+  if (isLocal && override) return override.replace(/\/$/, '');
+  const meta = document.querySelector('meta[name="briefing-api"]');
+  return meta && meta.content ? meta.content.replace(/\/$/, '') : '';
+}
 
 function getFieldValue(field) {
   const inputs = Array.from(field.querySelectorAll('input, textarea, select'))
@@ -29,9 +40,10 @@ function isColorField(field) {
   return Boolean(field.querySelector('input[type="color"]'));
 }
 
-function saveState() {
+function readFormState() {
   const state = {};
   form.querySelectorAll('input[name], textarea[name]').forEach((input) => {
+    if (input.name === 'website') return;
     if (input.type === 'checkbox') {
       state[input.name] = state[input.name] || [];
       if (input.checked) state[input.name].push(input.value);
@@ -41,8 +53,12 @@ function saveState() {
       state[input.name] = input.value;
     }
   });
+  return state;
+}
+
+function saveState() {
   try {
-    localStorage.setItem(BRIEFING_STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(BRIEFING_STORAGE_KEY, JSON.stringify(readFormState()));
   } catch (error) {
     // Navegação privada pode bloquear o localStorage; o formulário segue funcionando.
   }
@@ -153,7 +169,7 @@ function collectPhotos() {
 }
 
 function toMarkdown(answers) {
-  const lines = ['# Briefing - Landing page odontológica', '', `Gerado em: ${new Date().toLocaleString('pt-BR')}`, ''];
+  const lines = [`# Briefing - ${BRIEFING_TITLE}`, '', `Gerado em: ${new Date().toLocaleString('pt-BR')}`, ''];
   answers.forEach((secao) => {
     lines.push(`## ${secao.secao}`, '');
     secao.campos.forEach((campo) => {
@@ -180,7 +196,7 @@ function slugify(text) {
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '') || 'dentista';
+    .replace(/(^-|-$)/g, '') || BRIEFING_TYPE;
 }
 
 function setFeedback(message, isError = false) {
@@ -196,6 +212,78 @@ function failValidation(missing) {
   missing[0].element.focus({ preventScroll: true });
 }
 
+function buildPayload() {
+  const answers = collectAnswers();
+  return {
+    versao: 2,
+    tipo: BRIEFING_TYPE,
+    geradoEm: new Date().toISOString(),
+    profissional: form.elements.nomeCompleto.value.trim(),
+    website: form.elements.website.value,
+    cores: {
+      principal: form.elements.corPrincipal.value,
+      secundaria: form.elements.corSecundaria.value,
+      destaque: form.elements.corDestaque.value
+    },
+    dados: readFormState(),
+    respostas: answers,
+    resumoMarkdown: toMarkdown(answers),
+    fotos: collectPhotos()
+  };
+}
+
+function skippedBeforeAfterNote() {
+  return (photos['antes-depois'] || []).length > 0 && !hasBeforeAfterConsent()
+    ? ' As fotos de antes/depois ficaram de fora porque a autorização dos pacientes não foi confirmada.'
+    : '';
+}
+
+async function submitBriefing() {
+  const missing = validate();
+  if (missing.length > 0) {
+    failValidation(missing);
+    return;
+  }
+  if (!API_BASE) {
+    setFeedback('O envio online ainda não está disponível. Clique em "Baixar cópia do arquivo" e mande pelo WhatsApp.', true);
+    return;
+  }
+
+  const button = document.getElementById('submitBriefing');
+  button.disabled = true;
+  button.textContent = 'Enviando...';
+  setFeedback('Enviando suas respostas e fotos. Não feche a página.');
+
+  try {
+    const payload = buildPayload();
+    const response = await fetch(`${API_BASE}/api/briefings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      setFeedback(result.erro || 'Não foi possível enviar agora. Tente de novo ou baixe a cópia do arquivo.', true);
+      button.disabled = false;
+      button.textContent = 'Enviar briefing';
+      return;
+    }
+
+    try {
+      localStorage.removeItem(BRIEFING_STORAGE_KEY);
+    } catch (error) {
+      // Sem localStorage não há nada salvo para apagar.
+    }
+    button.textContent = 'Briefing enviado';
+    setFeedback(`Briefing enviado com sucesso! Protocolo ${result.id.slice(0, 8).toUpperCase()} (${result.totalFotos} foto(s)). O José já recebeu.${skippedBeforeAfterNote()}`);
+  } catch (error) {
+    setFeedback('Sem conexão com o servidor. Verifique a internet e tente de novo, ou baixe a cópia do arquivo e mande pelo WhatsApp.', true);
+    button.disabled = false;
+    button.textContent = 'Enviar briefing';
+  }
+}
+
 function downloadBriefing() {
   const missing = validate();
   if (missing.length > 0) {
@@ -203,21 +291,9 @@ function downloadBriefing() {
     return;
   }
 
-  const answers = collectAnswers();
-  const nome = form.elements.nomeCompleto.value.trim();
-  const payload = {
-    versao: 1,
-    geradoEm: new Date().toISOString(),
-    profissional: nome,
-    cores: {
-      principal: form.elements.corPrincipal.value,
-      secundaria: form.elements.corSecundaria.value,
-      destaque: form.elements.corDestaque.value
-    },
-    respostas: answers,
-    resumoMarkdown: toMarkdown(answers),
-    fotos: collectPhotos()
-  };
+  const payload = buildPayload();
+  delete payload.website;
+  const nome = payload.profissional;
 
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -230,10 +306,7 @@ function downloadBriefing() {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 
   const sizeMb = (blob.size / (1024 * 1024)).toFixed(1);
-  const skipped = (photos['antes-depois'] || []).length > 0 && !hasBeforeAfterConsent()
-    ? ' As fotos de antes/depois ficaram de fora porque a autorização dos pacientes não foi confirmada.'
-    : '';
-  setFeedback(`Arquivo baixado (${sizeMb} MB, ${payload.fotos.length} foto(s)). Agora é só mandar para o José.${skipped}`);
+  setFeedback(`Arquivo baixado (${sizeMb} MB, ${payload.fotos.length} foto(s)). Agora é só mandar para o José.${skippedBeforeAfterNote()}`);
 }
 
 async function copyAnswers() {
@@ -273,38 +346,30 @@ function loadImage(file) {
   });
 }
 
-function readAsDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
-  });
-}
-
 async function processPhoto(file, category) {
-  if (file.type === 'image/svg+xml') {
-    return { name: file.name, dataUrl: await readAsDataUrl(file), extension: 'svg', width: null, height: null };
-  }
-
   const image = await loadImage(file);
-  const keepTransparency = category === 'logo' || file.type === 'image/png';
+  const isLogo = category === 'logo';
   const maxSide = category === 'logo' ? LOGO_MAX_SIDE : PHOTO_MAX_SIDE;
-  const scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
-  const width = Math.round(image.naturalWidth * scale);
-  const height = Math.round(image.naturalHeight * scale);
+  // SVG sem width/height declarados não tem tamanho natural; rasterizamos num tamanho padrão.
+  const naturalWidth = image.naturalWidth || LOGO_MAX_SIDE;
+  const naturalHeight = image.naturalHeight || LOGO_MAX_SIDE;
+  const scale = file.type === 'image/svg+xml'
+    ? maxSide / Math.max(naturalWidth, naturalHeight)
+    : Math.min(1, maxSide / Math.max(naturalWidth, naturalHeight));
+  const width = Math.round(naturalWidth * scale);
+  const height = Math.round(naturalHeight * scale);
 
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   const context = canvas.getContext('2d');
-  if (!keepTransparency) {
+  if (!isLogo) {
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, width, height);
   }
   context.drawImage(image, 0, 0, width, height);
 
-  const mime = keepTransparency && category === 'logo' ? 'image/png' : 'image/jpeg';
+  const mime = isLogo ? 'image/png' : 'image/jpeg';
   return {
     name: file.name,
     dataUrl: canvas.toDataURL(mime, PHOTO_QUALITY),
@@ -386,6 +451,9 @@ function resetBriefing() {
     renderPhotos(category);
   });
   form.querySelectorAll('.is-invalid').forEach((el) => el.classList.remove('is-invalid'));
+  const submit = document.getElementById('submitBriefing');
+  submit.disabled = false;
+  submit.textContent = 'Enviar briefing';
   setFeedback('');
   updateProgress();
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -420,9 +488,10 @@ function initBriefing() {
 
   form.addEventListener('submit', (event) => event.preventDefault());
   form.querySelectorAll('input[type="file"]').forEach((input) => input.addEventListener('change', handlePhotoInput));
-  document.getElementById('croUf').addEventListener('input', (event) => {
+  form.querySelectorAll('[data-uppercase]').forEach((input) => input.addEventListener('input', (event) => {
     event.target.value = event.target.value.toUpperCase();
-  });
+  }));
+  document.getElementById('submitBriefing').addEventListener('click', submitBriefing);
   document.getElementById('downloadJson').addEventListener('click', downloadBriefing);
   document.getElementById('copyText').addEventListener('click', copyAnswers);
   document.getElementById('resetForm').addEventListener('click', resetBriefing);

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Briefing para criação de landing page de personal trainer.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0d1117">
+    <meta name="briefing-api" content="">
+    <title>Briefing | Landing page para personal trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="briefing-dentista.css">
+</head>
+<body class="briefing-page">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-text">Briefing · Personal Trainer</span>
+            </div>
+            <div class="briefing-progress" aria-live="polite">
+                <span id="progressText">0% preenchido</span>
+                <div class="briefing-progress-bar"><div id="progressFill"></div></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero briefing-hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Sua landing page · Mundo fitness</p>
+            <h1 class="hero-title">Vamos montar a sua página profissional</h1>
+            <p class="hero-subtitle">Responda com calma, do seu jeito. Quanto mais detalhes, mais a página vai ter a sua cara e a do seu método de treino. Leva uns 20 minutos e nada é enviado sozinho: só quando você clicar em enviar, no final.</p>
+            <ul class="briefing-hints">
+                <li>Campos com <span class="req">*</span> são obrigatórios. O resto é opcional, mas ajuda muito.</li>
+                <li>Suas respostas de texto ficam salvas neste navegador, então dá pra parar e continuar depois.</li>
+                <li>As fotos não ficam salvas: anexe-as quando for finalizar.</li>
+            </ul>
+            <div class="hero-cta">
+                <a href="#s-identificacao" class="btn btn-primary">Começar</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <svg class="hero-icon briefing-dumbbell" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="14" y="34" width="10" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                <rect x="24" y="28" width="10" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                <rect x="66" y="28" width="10" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                <rect x="76" y="34" width="10" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                <line x1="34" y1="50" x2="66" y2="50" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <form id="briefingForm" class="briefing-form" novalidate data-tipo="personal-trainer" data-storage-key="briefingPersonal:v1" data-titulo="Landing page de personal trainer">
+        <div class="container briefing-layout">
+            <aside class="briefing-steps" aria-label="Etapas">
+                <ol>
+                    <li><a href="#s-identificacao">Identificação</a></li>
+                    <li><a href="#s-formacao">Formação</a></li>
+                    <li><a href="#s-posicionamento">Posicionamento</a></li>
+                    <li><a href="#s-servicos">Serviços e planos</a></li>
+                    <li><a href="#s-local">Onde atende</a></li>
+                    <li><a href="#s-diferenciais">Diferenciais</a></li>
+                    <li><a href="#s-prova">Resultados</a></li>
+                    <li><a href="#s-faq">Dúvidas frequentes</a></li>
+                    <li><a href="#s-contato">Contato</a></li>
+                    <li><a href="#s-visual">Visual</a></li>
+                    <li><a href="#s-fotos">Fotos</a></li>
+                    <li><a href="#s-final">Finalizar</a></li>
+                </ol>
+            </aside>
+
+            <div class="briefing-steps-content">
+
+                <!-- 1. IDENTIFICAÇÃO -->
+                <section class="step" id="s-identificacao" data-title="Identificação">
+                    <h2><span class="step-number">1</span> Identificação</h2>
+                    <p class="step-intro">O básico que aparece no topo da página e nos resultados do Google.</p>
+
+                    <div class="field" data-q="Nome completo">
+                        <label for="nomeCompleto">Nome completo <span class="req">*</span></label>
+                        <input id="nomeCompleto" name="nomeCompleto" type="text" required autocomplete="name">
+                    </div>
+                    <div class="field" data-q="Nome de exibição na página">
+                        <label for="nomeExibicao">Como você quer ser chamado na página?</label>
+                        <input id="nomeExibicao" name="nomeExibicao" type="text" placeholder="Ex.: Personal Carlos Lima">
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="Número do CREF">
+                            <label for="crefNumero">Número do CREF <span class="req">*</span></label>
+                            <input id="crefNumero" name="crefNumero" type="text" required placeholder="Ex.: 012345-G" data-uppercase>
+                        </div>
+                        <div class="field" data-q="UF do CREF">
+                            <label for="crefUf">UF <span class="req">*</span></label>
+                            <input id="crefUf" name="crefUf" type="text" required maxlength="2" placeholder="PE" data-uppercase>
+                        </div>
+                    </div>
+                    <p class="field-help">O CREF aparece na página: mostra que você é profissional de Educação Física registrado e passa muita confiança para quem está escolhendo um personal.</p>
+                    <div class="field" data-q="Área de foco">
+                        <label for="especialidades">Qual é o seu foco principal?</label>
+                        <input id="especialidades" name="especialidades" type="text" placeholder="Ex.: Emagrecimento e hipertrofia para iniciantes">
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="Cidade">
+                            <label for="cidade">Cidade <span class="req">*</span></label>
+                            <input id="cidade" name="cidade" type="text" required>
+                        </div>
+                        <div class="field" data-q="Bairro(s) que atende">
+                            <label for="bairro">Bairros / regiões que atende</label>
+                            <input id="bairro" name="bairro" type="text">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. FORMAÇÃO -->
+                <section class="step" id="s-formacao" data-title="Formação e trajetória">
+                    <h2><span class="step-number">2</span> Formação e trajetória</h2>
+                    <p class="step-intro">Isso vira a seção "Sobre mim" e passa autoridade e confiança.</p>
+
+                    <div class="field-row">
+                        <div class="field" data-q="Graduação (instituição)">
+                            <label for="graduacao">Onde se formou em Educação Física?</label>
+                            <input id="graduacao" name="graduacao" type="text" placeholder="Ex.: UFPE (Bacharelado)">
+                        </div>
+                        <div class="field" data-q="Ano de formatura">
+                            <label for="anoFormatura">Ano de formatura</label>
+                            <input id="anoFormatura" name="anoFormatura" type="number" min="1960" max="2030">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Pós-graduação, mestrado, doutorado">
+                        <label for="posGraduacao">Pós-graduação, mestrado, doutorado</label>
+                        <textarea id="posGraduacao" name="posGraduacao" rows="3" placeholder="Curso, instituição e ano (um por linha)"></textarea>
+                    </div>
+                    <div class="field" data-q="Cursos e certificações relevantes">
+                        <label for="cursos">Cursos e certificações de que se orgulha</label>
+                        <textarea id="cursos" name="cursos" rows="3" placeholder="Ex.: Treinamento funcional, LPO, primeiros socorros, treino para gestantes..."></textarea>
+                    </div>
+                    <div class="field-row three">
+                        <div class="field" data-q="Anos de experiência">
+                            <label for="anosExperiencia">Anos de experiência</label>
+                            <input id="anosExperiencia" name="anosExperiencia" type="number" min="0">
+                        </div>
+                        <div class="field" data-q="Alunos atendidos (aprox.)">
+                            <label for="alunosAtendidos">Alunos atendidos (aprox.)</label>
+                            <input id="alunosAtendidos" name="alunosAtendidos" type="text" placeholder="Ex.: 300+">
+                        </div>
+                        <div class="field" data-q="Outro número de destaque">
+                            <label for="outroNumero">Outro número de destaque</label>
+                            <input id="outroNumero" name="outroNumero" type="text" placeholder="Ex.: 50 alunos ativos">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Sua história">
+                        <label for="historia">Por que escolheu ser personal trainer? Conte um pouco da sua história.</label>
+                        <textarea id="historia" name="historia" rows="5" placeholder="Escreva como se estivesse contando para um aluno novo. Eu ajusto o texto depois."></textarea>
+                    </div>
+                </section>
+
+                <!-- 3. POSICIONAMENTO -->
+                <section class="step" id="s-posicionamento" data-title="Posicionamento">
+                    <h2><span class="step-number">3</span> Posicionamento</h2>
+                    <p class="step-intro">Para quem é a página e qual sensação ela deve passar.</p>
+
+                    <div class="field" data-q="Público principal">
+                        <span class="label">Quem você mais atende ou quer atrair?</span>
+                        <div class="choices">
+                            <label><input type="checkbox" name="publico" value="Iniciantes / sedentários"> Iniciantes / sedentários</label>
+                            <label><input type="checkbox" name="publico" value="Quem quer emagrecer"> Quem quer emagrecer</label>
+                            <label><input type="checkbox" name="publico" value="Quem quer ganhar massa"> Quem quer ganhar massa</label>
+                            <label><input type="checkbox" name="publico" value="Mulheres"> Mulheres</label>
+                            <label><input type="checkbox" name="publico" value="Idosos"> Idosos</label>
+                            <label><input type="checkbox" name="publico" value="Gestantes e pós-parto"> Gestantes e pós-parto</label>
+                            <label><input type="checkbox" name="publico" value="Atletas / performance"> Atletas / performance</label>
+                            <label><input type="checkbox" name="publico" value="Corredores"> Corredores</label>
+                            <label><input type="checkbox" name="publico" value="Pós-lesão / liberados pela fisioterapia"> Pós-lesão (liberados pela fisio)</label>
+                            <label><input type="checkbox" name="publico" value="Pessoas com pouco tempo"> Pessoas com pouco tempo</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Frase que te define">
+                        <label for="frase">Se a página tivesse uma frase de destaque, qual seria?</label>
+                        <input id="frase" name="frase" type="text" placeholder="Ex.: Treino feito pra sua rotina, resultado que dura">
+                    </div>
+                    <div class="field" data-q="3 palavras que os alunos usam para te descrever">
+                        <label for="palavras">3 palavras que os alunos usam para te descrever</label>
+                        <input id="palavras" name="palavras" type="text" placeholder="Ex.: motivador, paciente, exigente">
+                    </div>
+                    <div class="field" data-q="Tom da página">
+                        <span class="label">Que sensação a página deve passar?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="tom" value="Energética e motivadora"> Energética e motivadora</label>
+                            <label><input type="radio" name="tom" value="Acolhedora e humana"> Acolhedora e humana</label>
+                            <label><input type="radio" name="tom" value="Técnica e baseada em ciência"> Técnica e baseada em ciência</label>
+                            <label><input type="radio" name="tom" value="Sofisticada / premium"> Sofisticada / premium</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Objetivo principal da página">
+                        <span class="label">O que você mais quer que o visitante faça?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="objetivo" value="Chamar no WhatsApp"> Chamar no WhatsApp</label>
+                            <label><input type="radio" name="objetivo" value="Agendar aula experimental"> Agendar aula experimental</label>
+                            <label><input type="radio" name="objetivo" value="Contratar consultoria online"> Contratar consultoria online</label>
+                            <label><input type="radio" name="objetivo" value="Seguir no Instagram"> Seguir no Instagram</label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. SERVIÇOS -->
+                <section class="step" id="s-servicos" data-title="Serviços e planos">
+                    <h2><span class="step-number">4</span> Serviços e planos</h2>
+                    <p class="step-intro">Cada serviço marcado vira um card na seção de serviços.</p>
+
+                    <div class="field" data-q="Serviços oferecidos">
+                        <span class="label">Marque o que você faz</span>
+                        <div class="choices columns">
+                            <label><input type="checkbox" name="servicos" value="Personal presencial individual"> Personal presencial individual</label>
+                            <label><input type="checkbox" name="servicos" value="Treino em dupla / pequenos grupos"> Treino em dupla / pequenos grupos</label>
+                            <label><input type="checkbox" name="servicos" value="Consultoria online"> Consultoria online</label>
+                            <label><input type="checkbox" name="servicos" value="Avaliação física"> Avaliação física</label>
+                            <label><input type="checkbox" name="servicos" value="Musculação"> Musculação</label>
+                            <label><input type="checkbox" name="servicos" value="Treino funcional"> Treino funcional</label>
+                            <label><input type="checkbox" name="servicos" value="HIIT / condicionamento"> HIIT / condicionamento</label>
+                            <label><input type="checkbox" name="servicos" value="Emagrecimento"> Emagrecimento</label>
+                            <label><input type="checkbox" name="servicos" value="Hipertrofia"> Hipertrofia</label>
+                            <label><input type="checkbox" name="servicos" value="Assessoria de corrida"> Assessoria de corrida</label>
+                            <label><input type="checkbox" name="servicos" value="Mobilidade e alongamento"> Mobilidade e alongamento</label>
+                            <label><input type="checkbox" name="servicos" value="Treino para idosos"> Treino para idosos</label>
+                            <label><input type="checkbox" name="servicos" value="Treino para gestantes"> Treino para gestantes</label>
+                            <label><input type="checkbox" name="servicos" value="Preparação esportiva"> Preparação esportiva</label>
+                            <label><input type="checkbox" name="servicos" value="Treino em casa / condomínio"> Treino em casa / condomínio</label>
+                            <label><input type="checkbox" name="servicos" value="Treino ao ar livre"> Treino ao ar livre</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Outros serviços">
+                        <label for="servicosOutros">Outros serviços</label>
+                        <input id="servicosOutros" name="servicosOutros" type="text">
+                    </div>
+                    <div class="field" data-q="Serviço carro-chefe">
+                        <label for="carroChefe">Qual serviço você mais quer divulgar? Por quê?</label>
+                        <textarea id="carroChefe" name="carroChefe" rows="3"></textarea>
+                    </div>
+                    <div class="field" data-q="Como funciona o começo">
+                        <label for="primeiraConsulta">Como funciona o começo com você? (aula experimental, avaliação, anamnese, montagem do treino)</label>
+                        <textarea id="primeiraConsulta" name="primeiraConsulta" rows="3"></textarea>
+                    </div>
+                    <div class="field" data-q="Mostrar preços na página?">
+                        <span class="label">Quer mostrar preços na página?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="mostrarPrecos" value="Sim, com os valores"> Sim, com os valores</label>
+                            <label><input type="radio" name="mostrarPrecos" value="Só &quot;a partir de&quot;"> Só "a partir de"</label>
+                            <label><input type="radio" name="mostrarPrecos" value="Não, só os planos sem valor"> Não, só os planos sem valor</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Planos e pacotes">
+                        <label for="planos">Planos e pacotes (nome, frequência, duração e valor, um por linha)</label>
+                        <textarea id="planos" name="planos" rows="4" placeholder="Ex.: Plano 2x/semana · 8 aulas/mês · R$ 480&#10;Consultoria online · trimestral · R$ 300"></textarea>
+                    </div>
+                </section>
+
+                <!-- 5. ONDE ATENDE -->
+                <section class="step" id="s-local" data-title="Onde atende">
+                    <h2><span class="step-number">5</span> Onde atende</h2>
+                    <p class="step-intro">Deixar claro onde e quando você treina com o aluno tira a principal dúvida de quem está chegando.</p>
+
+                    <div class="field" data-q="Locais de atendimento">
+                        <span class="label">Onde você atende?</span>
+                        <div class="choices columns">
+                            <label><input type="checkbox" name="locais" value="Academia(s) parceira(s)"> Academia(s) parceira(s)</label>
+                            <label><input type="checkbox" name="locais" value="Studio próprio"> Studio próprio</label>
+                            <label><input type="checkbox" name="locais" value="Na casa / condomínio do aluno"> Na casa / condomínio do aluno</label>
+                            <label><input type="checkbox" name="locais" value="Ao ar livre (praia, parque, orla)"> Ao ar livre (praia, parque, orla)</label>
+                            <label><input type="checkbox" name="locais" value="Online (qualquer cidade)"> Online (qualquer cidade)</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Nome do studio / academias">
+                        <label for="nomeLocal">Nome do studio ou das academias onde atende</label>
+                        <input id="nomeLocal" name="nomeLocal" type="text">
+                    </div>
+                    <div class="field" data-q="Endereço completo">
+                        <label for="endereco">Endereço (se tiver studio ou academia fixa)</label>
+                        <input id="endereco" name="endereco" type="text" placeholder="Rua, número, bairro, CEP" autocomplete="street-address">
+                    </div>
+                    <div class="field" data-q="Link do Google Maps">
+                        <label for="maps">Link do Google Maps</label>
+                        <input id="maps" name="maps" type="url" placeholder="https://maps.app.goo.gl/...">
+                    </div>
+                    <div class="field" data-q="Dias e horários de atendimento">
+                        <label for="horarios">Dias e horários de atendimento</label>
+                        <textarea id="horarios" name="horarios" rows="3" placeholder="Ex.: Seg a Sex 5h–11h e 16h–21h, Sáb 6h–10h"></textarea>
+                    </div>
+                    <div class="field" data-q="Ferramentas e avaliação">
+                        <span class="label">Ferramentas que você usa</span>
+                        <div class="choices columns">
+                            <label><input type="checkbox" name="ferramentas" value="Bioimpedância"> Bioimpedância</label>
+                            <label><input type="checkbox" name="ferramentas" value="Adipômetro / dobras cutâneas"> Adipômetro / dobras cutâneas</label>
+                            <label><input type="checkbox" name="ferramentas" value="Avaliação postural"> Avaliação postural</label>
+                            <label><input type="checkbox" name="ferramentas" value="Testes de força e mobilidade"> Testes de força e mobilidade</label>
+                            <label><input type="checkbox" name="ferramentas" value="App de treino para o aluno"> App de treino para o aluno</label>
+                            <label><input type="checkbox" name="ferramentas" value="Monitor cardíaco"> Monitor cardíaco</label>
+                            <label><input type="checkbox" name="ferramentas" value="Vídeos de execução dos exercícios"> Vídeos de execução dos exercícios</label>
+                            <label><input type="checkbox" name="ferramentas" value="Relatórios de evolução"> Relatórios de evolução</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Outras ferramentas / equipamentos">
+                        <label for="ferramentasOutras">Outras ferramentas e equipamentos que você leva ou usa (app específico, kettlebells, elásticos, etc.)</label>
+                        <textarea id="ferramentasOutras" name="ferramentasOutras" rows="2"></textarea>
+                    </div>
+                    <div class="field" data-q="Parcerias">
+                        <label for="parcerias">Trabalha em parceria com nutricionista, fisioterapeuta ou outros profissionais? (nomes e registros, se forem aparecer)</label>
+                        <textarea id="parcerias" name="parcerias" rows="3"></textarea>
+                    </div>
+                </section>
+
+                <!-- 6. DIFERENCIAIS -->
+                <section class="step" id="s-diferenciais" data-title="Diferenciais">
+                    <h2><span class="step-number">6</span> Diferenciais</h2>
+                    <p class="step-intro">Na sua página, essa seção se chama "Meus diferenciais". Aqui é onde você se destaca de outros personais.</p>
+
+                    <div class="field" data-q="Diferenciais">
+                        <label for="diferenciais">O que você faz diferente? (um por linha, até 6)</label>
+                        <textarea id="diferenciais" name="diferenciais" rows="6" placeholder="Ex.: Treino 100% individualizado, revisado todo mês&#10;Acompanhamento pelo WhatsApp entre as aulas&#10;Reavaliação física a cada 8 semanas"></textarea>
+                    </div>
+                    <div class="field" data-q="Elogio mais comum dos alunos">
+                        <label for="elogio">Qual é o elogio que você mais ouve dos alunos?</label>
+                        <input id="elogio" name="elogio" type="text">
+                    </div>
+                    <div class="field" data-q="Competições, palestras, projetos, prêmios">
+                        <label for="extras">Competições, projetos sociais, palestras, aulas ou prêmios</label>
+                        <textarea id="extras" name="extras" rows="3"></textarea>
+                    </div>
+                </section>
+
+                <!-- 7. PROVA SOCIAL -->
+                <section class="step" id="s-prova" data-title="Resultados e depoimentos">
+                    <h2><span class="step-number">7</span> Resultados e depoimentos</h2>
+                    <p class="step-intro">Resultados reais de alunos são o que mais convence quem está pensando em começar.</p>
+
+                    <div class="field-row">
+                        <div class="field" data-q="Nota no Google">
+                            <label for="notaGoogle">Nota no Google</label>
+                            <input id="notaGoogle" name="notaGoogle" type="text" placeholder="Ex.: 4,9">
+                        </div>
+                        <div class="field" data-q="Quantidade de avaliações no Google">
+                            <label for="qtdAvaliacoes">Quantidade de avaliações</label>
+                            <input id="qtdAvaliacoes" name="qtdAvaliacoes" type="number" min="0">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Link do perfil no Google">
+                        <label for="perfilGoogle">Link do seu perfil no Google (Google Meu Negócio)</label>
+                        <input id="perfilGoogle" name="perfilGoogle" type="url">
+                    </div>
+                    <div class="field" data-q="Resultados de alunos">
+                        <label for="resultados">Resultados que você pode contar (sem nome completo, um por linha)</label>
+                        <textarea id="resultados" name="resultados" rows="4" placeholder="Ex.: Aluna de 52 anos voltou a correr 5 km em 4 meses&#10;Aluno perdeu 12 kg em 6 meses mantendo a massa magra"></textarea>
+                    </div>
+                    <div class="field" data-q="Depoimentos">
+                        <label for="depoimentos">Cole de 3 a 6 depoimentos (texto + primeiro nome do aluno)</label>
+                        <textarea id="depoimentos" name="depoimentos" rows="6" placeholder="&quot;Nunca tinha conseguido manter um treino por mais de um mês.&quot; — Paula"></textarea>
+                        <p class="field-help">Use só depoimentos que o aluno autorizou divulgar, ou que já são públicos no Google.</p>
+                    </div>
+                </section>
+
+                <!-- 8. FAQ -->
+                <section class="step" id="s-faq" data-title="Dúvidas frequentes">
+                    <h2><span class="step-number">8</span> Dúvidas frequentes</h2>
+                    <p class="step-intro">Uma seção de perguntas frequentes responde objeções antes do aluno chamar, e ajuda no Google.</p>
+
+                    <div class="field" data-q="Perguntas que os alunos mais fazem">
+                        <label for="faq">Quais perguntas você mais ouve? Se puder, já coloque a sua resposta.</label>
+                        <textarea id="faq" name="faq" rows="7" placeholder="P: Nunca treinei, consigo acompanhar?&#10;R: ...&#10;&#10;P: Em quanto tempo vejo resultado?&#10;R: ..."></textarea>
+                    </div>
+                </section>
+
+                <!-- 9. CONTATO -->
+                <section class="step" id="s-contato" data-title="Contato e redes">
+                    <h2><span class="step-number">9</span> Contato e redes</h2>
+                    <p class="step-intro">Esses são os botões da página. Só coloque o que pode aparecer publicamente.</p>
+
+                    <div class="field-row">
+                        <div class="field" data-q="WhatsApp de contato">
+                            <label for="whatsapp">WhatsApp de contato <span class="req">*</span></label>
+                            <input id="whatsapp" name="whatsapp" type="tel" required placeholder="(81) 90000-0000" autocomplete="tel">
+                        </div>
+                        <div class="field" data-q="E-mail">
+                            <label for="email">E-mail profissional</label>
+                            <input id="email" name="email" type="email" autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Mensagem automática do WhatsApp">
+                        <label for="msgWhatsapp">Mensagem que já vem escrita quando o visitante clicar no WhatsApp</label>
+                        <input id="msgWhatsapp" name="msgWhatsapp" type="text" placeholder="Olá! Vim pelo site e quero agendar uma aula experimental.">
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="Instagram">
+                            <label for="instagram">Instagram</label>
+                            <input id="instagram" name="instagram" type="text" placeholder="@seuperfil">
+                        </div>
+                        <div class="field" data-q="TikTok / YouTube / Strava">
+                            <label for="outrasRedes">TikTok / YouTube / Strava</label>
+                            <input id="outrasRedes" name="outrasRedes" type="text">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Link de agendamento ou pagamento">
+                        <label for="agendamento">Link de agendamento, app de treino ou pagamento da consultoria</label>
+                        <input id="agendamento" name="agendamento" type="url">
+                    </div>
+                </section>
+
+                <!-- 10. VISUAL -->
+                <section class="step" id="s-visual" data-title="Identidade visual">
+                    <h2><span class="step-number">10</span> Identidade visual</h2>
+                    <p class="step-intro">A base vai ser a mesma estrutura da página do José. Aqui você escolhe a "roupa".</p>
+
+                    <div class="field" data-q="Tema">
+                        <span class="label">Fundo da página</span>
+                        <div class="choices">
+                            <label><input type="radio" name="tema" value="Escuro (combina com fitness, igual ao do José)"> Escuro (combina com fitness, igual ao do José)</label>
+                            <label><input type="radio" name="tema" value="Claro (branco)"> Claro (branco)</label>
+                            <label><input type="radio" name="tema" value="Tanto faz, pode decidir"> Tanto faz, pode decidir</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Já tem logo?">
+                        <span class="label">Você já tem logo e cores definidas?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="temLogo" value="Sim, logo e cores"> Sim, logo e cores</label>
+                            <label><input type="radio" name="temLogo" value="Só as cores"> Só as cores</label>
+                            <label><input type="radio" name="temLogo" value="Não tenho"> Não tenho</label>
+                        </div>
+                    </div>
+                    <div class="field-row three">
+                        <div class="field" data-q="Cor principal">
+                            <label for="corPrincipal">Cor principal</label>
+                            <input id="corPrincipal" name="corPrincipal" type="color" value="#ff5a1f">
+                        </div>
+                        <div class="field" data-q="Cor secundária">
+                            <label for="corSecundaria">Cor secundária</label>
+                            <input id="corSecundaria" name="corSecundaria" type="color" value="#111827">
+                        </div>
+                        <div class="field" data-q="Cor de destaque">
+                            <label for="corDestaque">Cor de destaque</label>
+                            <input id="corDestaque" name="corDestaque" type="color" value="#c6f432">
+                        </div>
+                    </div>
+                    <p class="field-help">Se não souber, deixe como está. Laranja, grafite e verde-limão passam energia e funcionam bem no mundo fitness.</p>
+                    <div class="field" data-q="Sites/perfis que você acha bonitos">
+                        <label for="referencias">Sites ou perfis de Instagram que você acha bonitos (links)</label>
+                        <textarea id="referencias" name="referencias" rows="3"></textarea>
+                    </div>
+                    <div class="field" data-q="O que NÃO quer na página">
+                        <label for="naoQuer">Algo que você <strong>não</strong> quer de jeito nenhum?</label>
+                        <input id="naoQuer" name="naoQuer" type="text" placeholder="Ex.: fotos de banco de imagem, cara de academia de rede">
+                    </div>
+                </section>
+
+                <!-- 11. FOTOS -->
+                <section class="step" id="s-fotos" data-title="Fotos">
+                    <h2><span class="step-number">11</span> Fotos</h2>
+                    <p class="step-intro">Fotos reais (suas, treinando e com alunos) são o que mais diferencia a página. Pode mandar direto do celular: eu reduzo o tamanho aqui mesmo.</p>
+
+                    <details class="photo-tips">
+                        <summary>Dicas rápidas para as fotos ficarem boas</summary>
+                        <ul>
+                            <li>Luz natural de frente (perto de uma janela ou ao ar livre no começo da manhã), sem flash.</li>
+                            <li>Foto principal: do peito para cima ou meio corpo, com a roupa que você usa para dar aula, fundo limpo.</li>
+                            <li>Fotos de ação: você corrigindo um movimento ou demonstrando um exercício, de preferência em sequência.</li>
+                            <li>Celular na horizontal para fotos do local e na vertical para o retrato.</li>
+                            <li>Evite filtros fortes e espelho de academia.</li>
+                        </ul>
+                    </details>
+
+                    <div class="photo-field" data-photo="foto-principal" data-label="Foto principal (retrato)">
+                        <label for="fotoPrincipal">Foto principal (retrato) <span class="req">*</span></label>
+                        <p class="field-help">Vai no topo da página, como a foto do José. Mande 2 ou 3 opções que eu escolho a melhor.</p>
+                        <input id="fotoPrincipal" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="treinando" data-label="Você treinando / dando aula">
+                        <label for="fotoTreinando">Você treinando ou dando aula</label>
+                        <input id="fotoTreinando" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="local" data-label="Local de treino (studio, academia, ar livre)">
+                        <label for="fotoLocal">Local de treino: studio, academia, espaço ao ar livre</label>
+                        <input id="fotoLocal" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="alunos" data-label="Com alunos">
+                        <label for="fotoAlunos">Você com alunos</label>
+                        <input id="fotoAlunos" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                        <p class="field-help">Só mande fotos em que os alunos toparam aparecer na página.</p>
+                    </div>
+                    <div class="photo-field" data-photo="logo" data-label="Logo">
+                        <label for="fotoLogo">Logo (PNG, JPG ou SVG, se tiver)</label>
+                        <input id="fotoLogo" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="antes-depois" data-label="Antes e depois">
+                        <label for="fotoAntesDepois">Antes e depois de alunos</label>
+                        <input id="fotoAntesDepois" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                        <div class="field" data-q="Autorização dos alunos (antes/depois)">
+                            <div class="choices">
+                                <label><input type="checkbox" name="autorizacaoAntesDepois" value="Confirmo que tenho autorização por escrito dos alunos"> Confirmo que tenho autorização por escrito dos alunos dessas fotos</label>
+                            </div>
+                        </div>
+                        <p class="field-help">Foto de corpo é dado pessoal sensível: só vai para a página com autorização por escrito do aluno. Sem a confirmação, essas fotos ficam de fora.</p>
+                    </div>
+                    <p class="photo-total" id="photoTotal">Nenhuma foto anexada.</p>
+                </section>
+
+                <!-- 12. FINAL -->
+                <section class="step" id="s-final" data-title="Finalização">
+                    <h2><span class="step-number">12</span> Finalizar</h2>
+
+                    <div class="field" data-q="Já tem domínio próprio?">
+                        <label for="dominio">Já tem um domínio (ex.: personalcarlos.com.br) ou ideia de endereço?</label>
+                        <input id="dominio" name="dominio" type="text">
+                    </div>
+                    <div class="field" data-q="Observações finais">
+                        <label for="observacoes">Algo mais que eu deveria saber?</label>
+                        <textarea id="observacoes" name="observacoes" rows="4"></textarea>
+                    </div>
+                    <div class="field" data-q="Autorização de uso">
+                        <div class="choices">
+                            <label><input type="checkbox" name="autorizacao" value="Autorizo o uso das informações e fotos na página" required> Autorizo o uso destas informações e fotos para criar e publicar a minha landing page <span class="req">*</span></label>
+                        </div>
+                    </div>
+
+                    <div class="briefing-honeypot" aria-hidden="true">
+                        <label for="website">Não preencha este campo</label>
+                        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="finish-box">
+                        <h3>Enviar para o José</h3>
+                        <p>Clique em <strong>Enviar briefing</strong>. As respostas e as fotos chegam direto para ele, de forma segura. Se der algum problema no envio, baixe o arquivo e mande pelo WhatsApp.</p>
+                        <div class="finish-actions">
+                            <button type="button" id="submitBriefing" class="btn btn-primary">Enviar briefing</button>
+                            <button type="button" id="downloadJson" class="btn btn-secondary">Baixar cópia do arquivo</button>
+                            <button type="button" id="copyText" class="btn btn-secondary">Copiar respostas em texto</button>
+                            <a id="sendWhatsapp" class="btn btn-secondary" href="https://wa.me/5581991737145" target="_blank" rel="noopener noreferrer">Avisar o José no WhatsApp</a>
+                        </div>
+                        <p class="form-feedback" id="finishFeedback" role="status" aria-live="polite"></p>
+                        <button type="button" id="resetForm" class="link-button">Apagar tudo e recomeçar</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </form>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Briefing criado por José Pacheco · Suas respostas ficam só no seu navegador até você clicar em enviar.</p>
+        </div>
+    </footer>
+
+    <script src="briefing-dentista.js"></script>
+</body>
+</html>
