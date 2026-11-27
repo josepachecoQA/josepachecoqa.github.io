@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Briefing para criação de landing page de fisioterapeuta.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0d1117">
+    <meta name="briefing-api" content="">
+    <title>Briefing | Landing page para fisioterapeuta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="briefing-dentista.css">
+</head>
+<body class="briefing-page">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-text">Briefing · Fisioterapia</span>
+            </div>
+            <div class="briefing-progress" aria-live="polite">
+                <span id="progressText">0% preenchido</span>
+                <div class="briefing-progress-bar"><div id="progressFill"></div></div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero briefing-hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Sua landing page · Área da saúde</p>
+            <h1 class="hero-title">Vamos montar a sua página profissional</h1>
+            <p class="hero-subtitle">Responda com calma, do seu jeito. Quanto mais detalhes, mais a página vai ter a sua cara e a do seu consultório. Leva uns 20 minutos e nada é enviado sozinho: só quando você clicar em enviar, no final.</p>
+            <ul class="briefing-hints">
+                <li>Campos com <span class="req">*</span> são obrigatórios. O resto é opcional, mas ajuda muito.</li>
+                <li>Suas respostas de texto ficam salvas neste navegador, então dá pra parar e continuar depois.</li>
+                <li>As fotos não ficam salvas: anexe-as quando for finalizar.</li>
+            </ul>
+            <div class="hero-cta">
+                <a href="#s-identificacao" class="btn btn-primary">Começar</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <svg class="hero-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="50" cy="22" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                <path d="M50 34v18M38 42h24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M36 52c0 8 6 14 14 22 8-8 14-14 14-22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M34 74h32M42 74v12M58 74v12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <form id="briefingForm" class="briefing-form" novalidate data-tipo="fisioterapeuta" data-storage-key="briefingFisioterapeuta:v1" data-titulo="Landing page de fisioterapia">
+        <div class="container briefing-layout">
+            <aside class="briefing-steps" aria-label="Etapas">
+                <ol>
+                    <li><a href="#s-identificacao">Identificação</a></li>
+                    <li><a href="#s-formacao">Formação</a></li>
+                    <li><a href="#s-posicionamento">Posicionamento</a></li>
+                    <li><a href="#s-servicos">Tratamentos</a></li>
+                    <li><a href="#s-consultorio">Consultório</a></li>
+                    <li><a href="#s-diferenciais">Diferenciais</a></li>
+                    <li><a href="#s-prova">Depoimentos</a></li>
+                    <li><a href="#s-faq">Dúvidas frequentes</a></li>
+                    <li><a href="#s-contato">Contato</a></li>
+                    <li><a href="#s-visual">Visual</a></li>
+                    <li><a href="#s-fotos">Fotos</a></li>
+                    <li><a href="#s-final">Finalizar</a></li>
+                </ol>
+            </aside>
+
+            <div class="briefing-steps-content">
+
+                <section class="step" id="s-identificacao" data-title="Identificação">
+                    <h2><span class="step-number">1</span> Identificação</h2>
+                    <p class="step-intro">O básico que aparece no topo da página e nos resultados do Google.</p>
+
+                    <div class="field" data-q="Nome completo">
+                        <label for="nomeCompleto">Nome completo <span class="req">*</span></label>
+                        <input id="nomeCompleto" name="nomeCompleto" type="text" required autocomplete="name">
+                    </div>
+                    <div class="field" data-q="Nome de exibição na página">
+                        <label for="nomeExibicao">Como você quer ser chamada na página?</label>
+                        <input id="nomeExibicao" name="nomeExibicao" type="text" placeholder="Ex.: Ft. Camila Ferreira">
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="Número do CREFITO">
+                            <label for="crefitoNumero">Número do CREFITO <span class="req">*</span></label>
+                            <input id="crefitoNumero" name="crefitoNumero" type="text" required inputmode="numeric" placeholder="Ex.: 123456">
+                        </div>
+                        <div class="field" data-q="UF do CREFITO">
+                            <label for="crefitoUf">UF <span class="req">*</span></label>
+                            <input id="crefitoUf" name="crefitoUf" type="text" required maxlength="2" placeholder="PE" data-uppercase>
+                        </div>
+                    </div>
+                    <p class="field-help">O CREFITO precisa aparecer na página: é exigência ética para divulgação profissional da fisioterapia.</p>
+                    <div class="field" data-q="Especialidade(s)">
+                        <label for="especialidades">Área(s) de atuação / especialidade(s)</label>
+                        <input id="especialidades" name="especialidades" type="text" placeholder="Ex.: Ortopedia, RPG, pilates clínico, reabilitação pós-operatória">
+                        <p class="field-help">Só chame de "especialista" o que estiver reconhecido/registrado. Se for foco clínico, descreva assim.</p>
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="Cidade">
+                            <label for="cidade">Cidade <span class="req">*</span></label>
+                            <input id="cidade" name="cidade" type="text" required>
+                        </div>
+                        <div class="field" data-q="Bairro(s) que atende">
+                            <label for="bairro">Bairro / região</label>
+                            <input id="bairro" name="bairro" type="text">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="step" id="s-formacao" data-title="Formação e trajetória">
+                    <h2><span class="step-number">2</span> Formação e trajetória</h2>
+                    <p class="step-intro">Isso vira a seção "Sobre mim" e passa autoridade e confiança.</p>
+
+                    <div class="field-row">
+                        <div class="field" data-q="Graduação (instituição)">
+                            <label for="graduacao">Onde se formou em Fisioterapia?</label>
+                            <input id="graduacao" name="graduacao" type="text" placeholder="Ex.: UNICAP">
+                        </div>
+                        <div class="field" data-q="Ano de formatura">
+                            <label for="anoFormatura">Ano de formatura</label>
+                            <input id="anoFormatura" name="anoFormatura" type="number" min="1960" max="2030">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Especializações, mestrado, doutorado">
+                        <label for="posGraduacao">Pós-graduação, especializações, mestrado, doutorado</label>
+                        <textarea id="posGraduacao" name="posGraduacao" rows="3" placeholder="Curso, instituição e ano (um por linha)"></textarea>
+                    </div>
+                    <div class="field" data-q="Cursos e certificações relevantes">
+                        <label for="cursos">Cursos e certificações de que se orgulha</label>
+                        <textarea id="cursos" name="cursos" rows="3" placeholder="Ex.: RPG, pilates clínico, dry needling, reabilitação de joelho..."></textarea>
+                    </div>
+                    <div class="field-row three">
+                        <div class="field" data-q="Anos de experiência">
+                            <label for="anosExperiencia">Anos de experiência</label>
+                            <input id="anosExperiencia" name="anosExperiencia" type="number" min="0">
+                        </div>
+                        <div class="field" data-q="Pacientes atendidos (aprox.)">
+                            <label for="pacientesAtendidos">Pacientes atendidos (aprox.)</label>
+                            <input id="pacientesAtendidos" name="pacientesAtendidos" type="text" placeholder="Ex.: 800+">
+                        </div>
+                        <div class="field" data-q="Outro número de destaque">
+                            <label for="outroNumero">Outro número de destaque</label>
+                            <input id="outroNumero" name="outroNumero" type="text" placeholder="Ex.: 200 pós-operatórios">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Sua história">
+                        <label for="historia">Por que escolheu a fisioterapia? Conte um pouco da sua história.</label>
+                        <textarea id="historia" name="historia" rows="5" placeholder="Escreva como se estivesse contando para um paciente novo. Eu ajusto o texto depois."></textarea>
+                    </div>
+                </section>
+
+                <section class="step" id="s-posicionamento" data-title="Posicionamento">
+                    <h2><span class="step-number">3</span> Posicionamento</h2>
+                    <p class="step-intro">Para quem é a página e qual sensação ela deve passar.</p>
+
+                    <div class="field" data-q="Público principal">
+                        <span class="label">Quem você mais atende ou quer atrair?</span>
+                        <div class="choices">
+                            <label><input type="checkbox" name="publico" value="Adultos"> Adultos</label>
+                            <label><input type="checkbox" name="publico" value="Idosos"> Idosos</label>
+                            <label><input type="checkbox" name="publico" value="Esportistas"> Esportistas</label>
+                            <label><input type="checkbox" name="publico" value="Pacientes pós-operatórios"> Pacientes pós-operatórios</label>
+                            <label><input type="checkbox" name="publico" value="Pessoas com dor crônica"> Pessoas com dor crônica</label>
+                            <label><input type="checkbox" name="publico" value="Gestantes"> Gestantes</label>
+                            <label><input type="checkbox" name="publico" value="Crianças e adolescentes"> Crianças e adolescentes</label>
+                            <label><input type="checkbox" name="publico" value="Pessoas com lesões de coluna"> Pessoas com lesões de coluna</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Frase que te define">
+                        <label for="frase">Se a página tivesse uma frase de destaque, qual seria?</label>
+                        <input id="frase" name="frase" type="text" placeholder="Ex.: Movimento com propósito. Sua recuperação começa aqui.">
+                    </div>
+                    <div class="field" data-q="3 palavras que os pacientes usam para te descrever">
+                        <label for="palavras">3 palavras que os pacientes usam para te descrever</label>
+                        <input id="palavras" name="palavras" type="text" placeholder="Ex.: atenciosa, técnica, motivadora">
+                    </div>
+                    <div class="field" data-q="Tom da página">
+                        <span class="label">Que sensação a página deve passar?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="tom" value="Acolhedora e humana"> Acolhedora e humana</label>
+                            <label><input type="radio" name="tom" value="Técnica e baseada em ciência"> Técnica e baseada em ciência</label>
+                            <label><input type="radio" name="tom" value="Moderna e energética"> Moderna e energética</label>
+                            <label><input type="radio" name="tom" value="Sofisticada / premium"> Sofisticada / premium</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Objetivo principal da página">
+                        <span class="label">O que você mais quer que o visitante faça?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="objetivo" value="Chamar no WhatsApp"> Chamar no WhatsApp</label>
+                            <label><input type="radio" name="objetivo" value="Agendar avaliação"> Agendar avaliação</label>
+                            <label><input type="radio" name="objetivo" value="Ligar"> Ligar</label>
+                            <label><input type="radio" name="objetivo" value="Seguir no Instagram"> Seguir no Instagram</label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="step" id="s-servicos" data-title="Tratamentos">
+                    <h2><span class="step-number">4</span> Tratamentos</h2>
+                    <p class="step-intro">Cada tratamento marcado vira um card na seção de serviços.</p>
+
+                    <div class="field" data-q="Tratamentos oferecidos">
+                        <span class="label">Marque o que você faz</span>
+                        <div class="choices columns">
+                            <label><input type="checkbox" name="servicos" value="Avaliação fisioterapêutica"> Avaliação fisioterapêutica</label>
+                            <label><input type="checkbox" name="servicos" value="Fisioterapia ortopédica"> Fisioterapia ortopédica</label>
+                            <label><input type="checkbox" name="servicos" value="RPG - Reeducação Postural Global"> RPG</label>
+                            <label><input type="checkbox" name="servicos" value="Pilates clínico"> Pilates clínico</label>
+                            <label><input type="checkbox" name="servicos" value="Reabilitação pós-operatória"> Reabilitação pós-operatória</label>
+                            <label><input type="checkbox" name="servicos" value="Fisioterapia esportiva"> Fisioterapia esportiva</label>
+                            <label><input type="checkbox" name="servicos" value="Tratamento de dor crônica"> Tratamento de dor crônica</label>
+                            <label><input type="checkbox" name="servicos" value="Fisioterapia para coluna"> Fisioterapia para coluna</label>
+                            <label><input type="checkbox" name="servicos" value="Reabilitação de joelho e ombro"> Reabilitação de joelho e ombro</label>
+                            <label><input type="checkbox" name="servicos" value="Fisioterapia respiratória"> Fisioterapia respiratória</label>
+                            <label><input type="checkbox" name="servicos" value="Fisioterapia pélvica"> Fisioterapia pélvica</label>
+                            <label><input type="checkbox" name="servicos" value="Atendimento a idosos"> Atendimento a idosos</label>
+                            <label><input type="checkbox" name="servicos" value="Fisioterapia para gestantes"> Fisioterapia para gestantes</label>
+                            <label><input type="checkbox" name="servicos" value="Liberação miofascial"> Liberação miofascial</label>
+                            <label><input type="checkbox" name="servicos" value="Exercícios terapêuticos"> Exercícios terapêuticos</label>
+                            <label><input type="checkbox" name="servicos" value="Prevenção de lesões"> Prevenção de lesões</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Outros tratamentos">
+                        <label for="servicosOutros">Outros tratamentos</label>
+                        <input id="servicosOutros" name="servicosOutros" type="text">
+                    </div>
+                    <div class="field" data-q="Tratamento carro-chefe">
+                        <label for="carroChefe">Qual tratamento você mais quer divulgar? Por quê?</label>
+                        <textarea id="carroChefe" name="carroChefe" rows="3"></textarea>
+                    </div>
+                    <div class="field" data-q="Como é a primeira consulta">
+                        <label for="primeiraConsulta">Como funciona a primeira avaliação? (duração, o que acontece, se tem exames)</label>
+                        <textarea id="primeiraConsulta" name="primeiraConsulta" rows="3"></textarea>
+                    </div>
+                </section>
+
+                <section class="step" id="s-consultorio" data-title="Consultório">
+                    <h2><span class="step-number">5</span> Consultório</h2>
+                    <p class="step-intro">Mostrar o espaço e a estrutura tira a insegurança de quem ainda não te conhece.</p>
+
+                    <div class="field" data-q="Nome do consultório/clínica">
+                        <label for="nomeClinica">Nome do consultório / clínica / studio</label>
+                        <input id="nomeClinica" name="nomeClinica" type="text">
+                    </div>
+                    <div class="field" data-q="Endereço completo">
+                        <label for="endereco">Endereço completo</label>
+                        <input id="endereco" name="endereco" type="text" placeholder="Rua, número, sala, bairro, CEP" autocomplete="street-address">
+                    </div>
+                    <div class="field" data-q="Link do Google Maps">
+                        <label for="maps">Link do Google Maps</label>
+                        <input id="maps" name="maps" type="url" placeholder="https://maps.app.goo.gl/...">
+                    </div>
+                    <div class="field" data-q="Dias e horários de atendimento">
+                        <label for="horarios">Dias e horários de atendimento</label>
+                        <textarea id="horarios" name="horarios" rows="3" placeholder="Ex.: Seg a Sex 7h–19h, Sáb 8h–12h"></textarea>
+                    </div>
+                    <div class="field" data-q="Comodidades">
+                        <span class="label">Comodidades</span>
+                        <div class="choices columns">
+                            <label><input type="checkbox" name="comodidades" value="Estacionamento"> Estacionamento</label>
+                            <label><input type="checkbox" name="comodidades" value="Acessibilidade para cadeirantes"> Acessível para cadeirantes</label>
+                            <label><input type="checkbox" name="comodidades" value="Elevador"> Elevador</label>
+                            <label><input type="checkbox" name="comodidades" value="Ar-condicionado"> Ar-condicionado</label>
+                            <label><input type="checkbox" name="comodidades" value="Wi-Fi para pacientes"> Wi-Fi para pacientes</label>
+                            <label><input type="checkbox" name="comodidades" value="Sala privativa"> Sala privativa</label>
+                            <label><input type="checkbox" name="comodidades" value="Atendimento com hora marcada"> Atendimento com hora marcada</label>
+                            <label><input type="checkbox" name="comodidades" value="Atendimento domiciliar"> Atendimento domiciliar</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Tecnologias e equipamentos">
+                        <span class="label">Tecnologias e equipamentos</span>
+                        <div class="choices columns">
+                            <label><input type="checkbox" name="tecnologias" value="Aparelhos de pilates clínico"> Aparelhos de pilates clínico</label>
+                            <label><input type="checkbox" name="tecnologias" value="Materiais de RPG"> Materiais de RPG</label>
+                            <label><input type="checkbox" name="tecnologias" value="Eletroterapia"> Eletroterapia</label>
+                            <label><input type="checkbox" name="tecnologias" value="Ultrassom terapêutico"> Ultrassom terapêutico</label>
+                            <label><input type="checkbox" name="tecnologias" value="Laser terapêutico"> Laser terapêutico</label>
+                            <label><input type="checkbox" name="tecnologias" value="Bandagem funcional"> Bandagem funcional</label>
+                            <label><input type="checkbox" name="tecnologias" value="Avaliação postural digital"> Avaliação postural digital</label>
+                            <label><input type="checkbox" name="tecnologias" value="Dry needling"> Dry needling</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Outras tecnologias / biossegurança">
+                        <label for="tecnologiasOutras">Outras tecnologias e cuidados de biossegurança</label>
+                        <textarea id="tecnologiasOutras" name="tecnologiasOutras" rows="2"></textarea>
+                    </div>
+                    <div class="field" data-q="Atende convênios?">
+                        <span class="label">Atende convênios?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="convenio" value="Sim"> Sim</label>
+                            <label><input type="radio" name="convenio" value="Não, só particular"> Não, só particular</label>
+                            <label><input type="radio" name="convenio" value="Particular e alguns convênios"> Particular e alguns convênios</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Quais convênios">
+                        <label for="convenios">Quais convênios?</label>
+                        <input id="convenios" name="convenios" type="text">
+                    </div>
+                    <div class="field" data-q="Equipe">
+                        <label for="equipe">Trabalha com equipe? (nomes, funções e CREFITO de outros profissionais, se forem aparecer)</label>
+                        <textarea id="equipe" name="equipe" rows="3"></textarea>
+                    </div>
+                </section>
+
+                <section class="step" id="s-diferenciais" data-title="Diferenciais">
+                    <h2><span class="step-number">6</span> Diferenciais</h2>
+                    <p class="step-intro">Na sua página, essa seção se chama "Meus diferenciais". Aqui é onde você se destaca.</p>
+
+                    <div class="field" data-q="Diferenciais">
+                        <label for="diferenciais">O que você faz diferente? (um por linha, até 6)</label>
+                        <textarea id="diferenciais" name="diferenciais" rows="6" placeholder="Ex.: Avaliação detalhada antes de qualquer protocolo&#10;Plano personalizado para cada objetivo&#10;Acompanhamento pelo WhatsApp entre as sessões"></textarea>
+                    </div>
+                    <div class="field" data-q="Elogio mais comum dos pacientes">
+                        <label for="elogio">Qual é o elogio que você mais ouve dos pacientes?</label>
+                        <input id="elogio" name="elogio" type="text">
+                    </div>
+                    <div class="field" data-q="Trabalhos sociais, aulas, publicações, prêmios">
+                        <label for="extras">Projetos sociais, aulas, palestras, publicações ou prêmios</label>
+                        <textarea id="extras" name="extras" rows="3"></textarea>
+                    </div>
+                </section>
+
+                <section class="step" id="s-prova" data-title="Depoimentos e avaliações">
+                    <h2><span class="step-number">7</span> Depoimentos e avaliações</h2>
+                    <p class="step-intro">Depoimentos reais são o que mais convence um paciente novo.</p>
+
+                    <div class="field-row">
+                        <div class="field" data-q="Nota no Google">
+                            <label for="notaGoogle">Nota no Google</label>
+                            <input id="notaGoogle" name="notaGoogle" type="text" placeholder="Ex.: 4,9">
+                        </div>
+                        <div class="field" data-q="Quantidade de avaliações no Google">
+                            <label for="qtdAvaliacoes">Quantidade de avaliações</label>
+                            <input id="qtdAvaliacoes" name="qtdAvaliacoes" type="number" min="0">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Link do perfil no Google">
+                        <label for="perfilGoogle">Link do seu perfil no Google (Google Meu Negócio)</label>
+                        <input id="perfilGoogle" name="perfilGoogle" type="url">
+                    </div>
+                    <div class="field" data-q="Depoimentos">
+                        <label for="depoimentos">Cole de 3 a 6 depoimentos (texto + primeiro nome do paciente)</label>
+                        <textarea id="depoimentos" name="depoimentos" rows="6" placeholder="&quot;Pela primeira vez alguém me explicou o que eu tinha.&quot; — Marina"></textarea>
+                        <p class="field-help">Use só depoimentos que o paciente autorizou divulgar, ou que já são públicos no Google.</p>
+                    </div>
+                </section>
+
+                <section class="step" id="s-faq" data-title="Dúvidas frequentes">
+                    <h2><span class="step-number">8</span> Dúvidas frequentes</h2>
+                    <p class="step-intro">Uma seção de perguntas frequentes responde objeções antes do paciente chamar, e ajuda no Google.</p>
+
+                    <div class="field" data-q="Perguntas que os pacientes mais fazem">
+                        <label for="faq">Quais perguntas você mais ouve? Se puder, já coloque a sua resposta.</label>
+                        <textarea id="faq" name="faq" rows="7" placeholder="P: Quantas sessões vou precisar?&#10;R: ...&#10;&#10;P: Fisioterapia dói?&#10;R: ..."></textarea>
+                    </div>
+                </section>
+
+                <section class="step" id="s-contato" data-title="Contato e redes">
+                    <h2><span class="step-number">9</span> Contato e redes</h2>
+                    <p class="step-intro">Esses são os botões da página. Só coloque o que pode aparecer publicamente.</p>
+
+                    <div class="field-row">
+                        <div class="field" data-q="WhatsApp de agendamento">
+                            <label for="whatsapp">WhatsApp de agendamento <span class="req">*</span></label>
+                            <input id="whatsapp" name="whatsapp" type="tel" required placeholder="(81) 90000-0000" autocomplete="tel">
+                        </div>
+                        <div class="field" data-q="Telefone fixo">
+                            <label for="telefone">Telefone fixo</label>
+                            <input id="telefone" name="telefone" type="tel">
+                        </div>
+                    </div>
+                    <div class="field" data-q="Mensagem automática do WhatsApp">
+                        <label for="msgWhatsapp">Mensagem que já vem escrita quando o paciente clicar no WhatsApp</label>
+                        <input id="msgWhatsapp" name="msgWhatsapp" type="text" placeholder="Olá! Vim pelo site e gostaria de agendar uma avaliação.">
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="E-mail">
+                            <label for="email">E-mail profissional</label>
+                            <input id="email" name="email" type="email" autocomplete="email">
+                        </div>
+                        <div class="field" data-q="Instagram">
+                            <label for="instagram">Instagram</label>
+                            <input id="instagram" name="instagram" type="text" placeholder="@seuperfil">
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field" data-q="Facebook / TikTok / YouTube">
+                            <label for="outrasRedes">Facebook / TikTok / YouTube</label>
+                            <input id="outrasRedes" name="outrasRedes" type="text">
+                        </div>
+                        <div class="field" data-q="Link de agendamento online">
+                            <label for="agendamento">Link de agendamento online</label>
+                            <input id="agendamento" name="agendamento" type="url">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="step" id="s-visual" data-title="Identidade visual">
+                    <h2><span class="step-number">10</span> Identidade visual</h2>
+                    <p class="step-intro">A base vai ser a mesma estrutura das páginas de saúde. Aqui você escolhe a "roupa".</p>
+
+                    <div class="field" data-q="Tema">
+                        <span class="label">Fundo da página</span>
+                        <div class="choices">
+                            <label><input type="radio" name="tema" value="Claro (branco, mais comum na saúde)"> Claro (branco, mais comum na saúde)</label>
+                            <label><input type="radio" name="tema" value="Escuro"> Escuro</label>
+                            <label><input type="radio" name="tema" value="Tanto faz, pode decidir"> Tanto faz, pode decidir</label>
+                        </div>
+                    </div>
+                    <div class="field" data-q="Já tem logo?">
+                        <span class="label">Você já tem logo e cores definidas?</span>
+                        <div class="choices">
+                            <label><input type="radio" name="temLogo" value="Sim, logo e cores"> Sim, logo e cores</label>
+                            <label><input type="radio" name="temLogo" value="Só as cores"> Só as cores</label>
+                            <label><input type="radio" name="temLogo" value="Não tenho"> Não tenho</label>
+                        </div>
+                    </div>
+                    <div class="field-row three">
+                        <div class="field" data-q="Cor principal">
+                            <label for="corPrincipal">Cor principal</label>
+                            <input id="corPrincipal" name="corPrincipal" type="color" value="#2a9d8f">
+                        </div>
+                        <div class="field" data-q="Cor secundária">
+                            <label for="corSecundaria">Cor secundária</label>
+                            <input id="corSecundaria" name="corSecundaria" type="color" value="#264653">
+                        </div>
+                        <div class="field" data-q="Cor de destaque">
+                            <label for="corDestaque">Cor de destaque</label>
+                            <input id="corDestaque" name="corDestaque" type="color" value="#e9c46a">
+                        </div>
+                    </div>
+                    <p class="field-help">Se não souber, deixe como está. São tons de verde-água, azul-petróleo e areia que funcionam bem na fisioterapia.</p>
+                    <div class="field" data-q="Sites/perfis que você acha bonitos">
+                        <label for="referencias">Sites ou perfis de Instagram que você acha bonitos (links)</label>
+                        <textarea id="referencias" name="referencias" rows="3"></textarea>
+                    </div>
+                    <div class="field" data-q="O que NÃO quer na página">
+                        <label for="naoQuer">Algo que você <strong>não</strong> quer de jeito nenhum?</label>
+                        <input id="naoQuer" name="naoQuer" type="text" placeholder="Ex.: fotos de banco de imagem, cara de academia">
+                    </div>
+                </section>
+
+                <section class="step" id="s-fotos" data-title="Fotos">
+                    <h2><span class="step-number">11</span> Fotos</h2>
+                    <p class="step-intro">Fotos reais (suas e do consultório) são o que mais diferencia a página. Pode mandar direto do celular: eu reduzo o tamanho aqui mesmo.</p>
+
+                    <details class="photo-tips">
+                        <summary>Dicas rápidas para as fotos ficarem boas</summary>
+                        <ul>
+                            <li>Luz natural de frente (perto de uma janela), sem flash.</li>
+                            <li>Foto principal: do peito para cima, sorrindo, com a roupa que você usa para atender, fundo neutro.</li>
+                            <li>Celular na horizontal para o consultório e na vertical para o retrato.</li>
+                            <li>Consultório arrumado, sem papéis nem embalagens aparecendo.</li>
+                            <li>Evite filtros fortes.</li>
+                        </ul>
+                    </details>
+
+                    <div class="photo-field" data-photo="foto-principal" data-label="Foto principal (retrato)">
+                        <label for="fotoPrincipal">Foto principal (retrato) <span class="req">*</span></label>
+                        <p class="field-help">Vai no topo da página. Mande 2 ou 3 opções que eu escolho a melhor.</p>
+                        <input id="fotoPrincipal" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="atendendo" data-label="Você atendendo / trabalhando">
+                        <label for="fotoAtendendo">Você atendendo ou trabalhando</label>
+                        <input id="fotoAtendendo" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="consultorio" data-label="Consultório (sala, recepção, fachada)">
+                        <label for="fotoConsultorio">Consultório: sala de atendimento, recepção, fachada</label>
+                        <input id="fotoConsultorio" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="equipamentos" data-label="Equipamentos e detalhes">
+                        <label for="fotoEquipamentos">Equipamentos e detalhes (pilates, RPG, eletroterapia)</label>
+                        <input id="fotoEquipamentos" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="equipe" data-label="Equipe">
+                        <label for="fotoEquipe">Equipe</label>
+                        <input id="fotoEquipe" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="logo" data-label="Logo">
+                        <label for="fotoLogo">Logo (PNG, JPG ou SVG, se tiver)</label>
+                        <input id="fotoLogo" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                    </div>
+                    <div class="photo-field" data-photo="antes-depois" data-label="Antes e depois">
+                        <label for="fotoAntesDepois">Antes e depois de casos / evolução</label>
+                        <input id="fotoAntesDepois" type="file" accept="image/*" multiple>
+                        <div class="photo-preview"></div>
+                        <div class="field" data-q="Autorização dos pacientes (antes/depois)">
+                            <div class="choices">
+                                <label><input type="checkbox" name="autorizacaoAntesDepois" value="Confirmo que tenho autorização por escrito dos pacientes"> Confirmo que tenho autorização por escrito dos pacientes dessas fotos</label>
+                            </div>
+                        </div>
+                        <p class="field-help">Fotos de evolução/antes e depois só vão para a página com autorização por escrito. Sem a confirmação, essas fotos ficam de fora.</p>
+                    </div>
+                    <p class="photo-total" id="photoTotal">Nenhuma foto anexada.</p>
+                </section>
+
+                <section class="step" id="s-final" data-title="Finalização">
+                    <h2><span class="step-number">12</span> Finalizar</h2>
+
+                    <div class="field" data-q="Já tem domínio próprio?">
+                        <label for="dominio">Já tem um domínio (ex.: ftcamila.com.br) ou ideia de endereço?</label>
+                        <input id="dominio" name="dominio" type="text">
+                    </div>
+                    <div class="field" data-q="Observações finais">
+                        <label for="observacoes">Algo mais que eu deveria saber?</label>
+                        <textarea id="observacoes" name="observacoes" rows="4"></textarea>
+                    </div>
+                    <div class="field" data-q="Autorização de uso">
+                        <div class="choices">
+                            <label><input type="checkbox" name="autorizacao" value="Autorizo o uso das informações e fotos na página" required> Autorizo o uso destas informações e fotos para criar e publicar a minha landing page <span class="req">*</span></label>
+                        </div>
+                    </div>
+
+                    <div class="briefing-honeypot" aria-hidden="true">
+                        <label for="website">Não preencha este campo</label>
+                        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="finish-box">
+                        <h3>Enviar para o José</h3>
+                        <p>Clique em <strong>Enviar briefing</strong>. As respostas e as fotos chegam direto para ele, de forma segura. Se der algum problema no envio, baixe o arquivo e mande pelo WhatsApp.</p>
+                        <div class="finish-actions">
+                            <button type="button" id="submitBriefing" class="btn btn-primary">Enviar briefing</button>
+                            <button type="button" id="downloadJson" class="btn btn-secondary">Baixar cópia do arquivo</button>
+                            <button type="button" id="copyText" class="btn btn-secondary">Copiar respostas em texto</button>
+                            <a id="sendWhatsapp" class="btn btn-secondary" href="https://wa.me/5581991737145" target="_blank" rel="noopener noreferrer">Avisar o José no WhatsApp</a>
+                        </div>
+                        <p class="form-feedback" id="finishFeedback" role="status" aria-live="polite"></p>
+                        <button type="button" id="resetForm" class="link-button">Apagar tudo e recomeçar</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </form>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Briefing criado por José Pacheco · Suas respostas ficam só no seu navegador até você clicar em enviar.</p>
+        </div>
+    </footer>
+
+    <script src="briefing-dentista.js"></script>
+</body>
+</html>
